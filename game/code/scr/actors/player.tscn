@@ -1,0 +1,184 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scr/actors/player.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/game/sprites/industrial/Sprite-prota-full.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/game/sprites/custom/light.jpg" type="Texture" id=3]
+[ext_resource path="res://assets/audio/sfx/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/button_left.png" type="Texture" id=5]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/press_button_left.png" type="Texture" id=6]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/button_right.png" type="Texture" id=7]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/press_button_right.png" type="Texture" id=8]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/sprite_up.png" type="Texture" id=9]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/press_sprite_up.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/sprite_action.png" type="Texture" id=11]
+[ext_resource path="res://assets/audio/music/menu_and_ui/ui/press_sprite_action.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/game/sprites/industrial/Sprite-prota-shadow.png" type="Texture" id=13]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.50058
+height = 5.98679
+
+[sub_resource type="Animation" id=8]
+resource_name = "dash"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame_coords")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ), Vector2( 1, 2 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame_coords")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( 2, 1 ), Vector2( 3, 1 ), Vector2( 0, 1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 2.0
+
+[node name="player" type="KinematicBody2D"]
+position = Vector2( 128, 72 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+position = Vector2( 0.4, 9.5 )
+scale = Vector2( 0.8, 0.5 )
+texture = ExtResource( 13 )
+
+[node name="ParticlesMove" type="CPUParticles2D" parent="."]
+modulate = Color( 0.847059, 0.8, 0.709804, 0.247059 )
+position = Vector2( 0, 4 )
+emitting = false
+amount = 2
+lifetime = 1.5
+one_shot = true
+direction = Vector2( -1, 0 )
+spread = 20.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+damping = 6.0
+scale_amount = 2.5
+scale_amount_random = 1.0
+
+[node name="dust" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -6 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, 6 )
+hframes = 32
+vframes = 32
+frame = 193
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 0, -6 )
+texture = ExtResource( 2 )
+hframes = 32
+vframes = 32
+frame = 65
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.50058, 1.49397 )
+shape = SubResource( 1 )
+
+[node name="animation" type="AnimationPlayer" parent="."]
+playback_speed = 1.25
+anims/dash = SubResource( 8 )
+anims/idle = SubResource( 3 )
+anims/run = SubResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.6, 0.6 )
+
+[node name="Position2D" type="Position2D" parent="Camera2D"]
+light_mask = 2
+position = Vector2( -8, -10 )
+
+[node name="RigidBody2D" type="Area2D" parent="Camera2D/Position2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Position2D/RigidBody2D"]
+shape = SubResource( 6 )
+
+[node name="dialog" type="Position2D" parent="Camera2D"]
+position = Vector2( -120, -65 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+energy = 0.6
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -25.0
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="left" type="TouchScreenButton" parent="ui"]
+position = Vector2( 24, 180 )
+scale = Vector2( 2.5, 2.5 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 6 )
+action = "ui_left"
+visibility_mode = 1
+
+[node name="right" type="TouchScreenButton" parent="ui"]
+position = Vector2( 80, 180 )
+scale = Vector2( 2.5, 2.5 )
+normal = ExtResource( 7 )
+pressed = ExtResource( 8 )
+action = "ui_right"
+visibility_mode = 1
+
+[node name="up" type="TouchScreenButton" parent="ui"]
+position = Vector2( 360, 180 )
+scale = Vector2( 2.5, 2.5 )
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+action = "ui_up"
+visibility_mode = 1
+
+[node name="action" type="TouchScreenButton" parent="ui"]
+position = Vector2( 304, 180 )
+scale = Vector2( 2.5, 2.5 )
+normal = ExtResource( 11 )
+pressed = ExtResource( 12 )
+action = "ui_action"
+visibility_mode = 1
+
+[connection signal="body_entered" from="Camera2D/Position2D/RigidBody2D" to="." method="_on_RigidBody2D_body_entered"]
