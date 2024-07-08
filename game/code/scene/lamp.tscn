@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://script/lamp.gd" type="Script" id=1]
+[ext_resource path="res://art/tilemap/lampe_eteint.png" type="Texture" id=2]
+[ext_resource path="res://art/tilemap/lampe_allumé.png" type="Texture" id=3]
+[ext_resource path="res://art/fx/light.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "allumé",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "éteint",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7, 12 )
+
+[node name="StaticBody2D" type="StaticBody2D" groups=["lampe"]]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "éteint"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.283035, -2.66067 )
+scale = Vector2( 1, 0.943814 )
+shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -0.224319, 0.794664 )
+enabled = false
+texture = ExtResource( 4 )

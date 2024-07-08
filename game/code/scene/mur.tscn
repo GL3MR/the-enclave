@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://script/mur.gd" type="Script" id=1]
+[ext_resource path="res://art/tilemap/porte_lock.png" type="Texture" id=2]
+[ext_resource path="res://art/tilemap/porte_close.png" type="Texture" id=3]
+[ext_resource path="res://art/tilemap/porte_open.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 12 )
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "lock",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "close",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "open",
+"speed": 5.0
+} ]
+
+[node name="mur" type="StaticBody2D" groups=[
+"door",
+]]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+id = 0
+type = "open"
+nbofmob = 0
+
+[node name="col" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 1 )
+
+[node name="apparence" type="AnimatedSprite" parent="." index="1"]
+
+frames = SubResource( 2 )
+animation = "open"
+
+

@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scene/button_weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art/menu/leave.png" type="Texture" id=2]
+[ext_resource path="res://art/menu/continue.png" type="Texture" id=3]
+[ext_resource path="res://script/game_over.gd" type="Script" id=4]
+[ext_resource path="res://art/player/front0.png" type="Texture" id=5]
+[ext_resource path="res://art/menu/gameover.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "die",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/path = NodePath("texte:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -9, -98 ), Vector2( -9, 6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("continue:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 144, 224 ), Vector2( 144, 129 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("leave:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 208, 224 ), Vector2( 208, 128 ) ]
+}
+
+[node name="gameover" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+script = ExtResource( 4 )
+
+[node name="texte" type="TextureRect" parent="."]
+margin_left = -9.0
+margin_top = 6.0
+margin_right = 391.0
+margin_bottom = 106.0
+texture = ExtResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 192, 108 )
+frames = SubResource( 1 )
+animation = "die"
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "open"
+anims/open = SubResource( 2 )
+
+[node name="continue" parent="." instance=ExtResource( 1 )]
+margin_left = 144.0
+margin_top = 129.0
+margin_right = 176.0
+margin_bottom = 161.0
+
+[node name="TextureRect" type="TextureRect" parent="continue"]
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="leave" parent="." instance=ExtResource( 1 )]
+margin_left = 208.0
+margin_top = 128.0
+margin_right = 240.0
+margin_bottom = 160.0
+
+[node name="TextureRect" type="TextureRect" parent="leave"]
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="leave" to="." method="_on_leave_pressed"]

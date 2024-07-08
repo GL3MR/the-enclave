@@ -1,0 +1,215 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://script/player.gd" type="Script" id=1]
+[ext_resource path="res://art/player/cote10.png" type="Texture" id=2]
+[ext_resource path="res://art/player/front0.png" type="Texture" id=3]
+[ext_resource path="res://art/player/front1.png" type="Texture" id=4]
+[ext_resource path="res://art/player/front2.png" type="Texture" id=5]
+[ext_resource path="res://art/player/cote11.png" type="Texture" id=6]
+[ext_resource path="res://art/player/cote12.png" type="Texture" id=7]
+[ext_resource path="res://art/player/cote0.png" type="Texture" id=8]
+[ext_resource path="res://art/player/cote1.png" type="Texture" id=9]
+[ext_resource path="res://art/player/cote2.png" type="Texture" id=10]
+[ext_resource path="res://art/player/back0.png" type="Texture" id=11]
+[ext_resource path="res://art/player/back1.png" type="Texture" id=12]
+[ext_resource path="res://art/player/back2.png" type="Texture" id=13]
+[ext_resource path="res://art/player/fall0.png" type="Texture" id=14]
+[ext_resource path="res://art/player/fall1.png" type="Texture" id=15]
+[ext_resource path="res://art/player/fall2.png" type="Texture" id=16]
+[ext_resource path="res://art/menu/sabre_hud.png" type="Texture" id=17]
+[ext_resource path="res://art/menu/dash.png" type="Texture" id=18]
+[ext_resource path="res://art/menu/cadre_weapon_right.png" type="Texture" id=19]
+[ext_resource path="res://art/menu/cadre_weapon_left.png" type="Texture" id=20]
+[ext_resource path="res://art/menu/vie.png" type="Texture" id=21]
+[ext_resource path="res://art/menu/barre_contener.png" type="Texture" id=22]
+[ext_resource path="res://art/fx/light.png" type="Texture" id=23]
+[ext_resource path="res://art/Sprite-full.png" type="Texture" id=24]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "fall",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "move0",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "move1",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "move2",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "move3",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "wait0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "wait1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "wait2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "wait3",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 8 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "invul"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.392157, 0.392157, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "rien"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Player" type="KinematicBody2D" groups=["hero"]]
+script = ExtResource( 1 )
+
+[node name="ParticlesMove" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 2
+lifetime = 1.5
+one_shot = true
+direction = Vector2( -1, 0 )
+spread = 20.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+damping = 6.0
+scale_amount = 2.5
+scale_amount_random = 1.0
+color = Color( 0.847059, 0.8, 0.709804, 0.247059 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 24 )
+hframes = 32
+vframes = 32
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+self_modulate = Color( 1, 0.46289, 0.46289, 1 )
+frames = SubResource( 1 )
+animation = "wait0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="weapon_switch" type="TextureRect" parent="hud"]
+visible = false
+margin_left = 300.0
+margin_right = 340.0
+margin_bottom = 40.0
+texture = ExtResource( 17 )
+stretch_mode = 4
+
+[node name="weapon" type="TextureRect" parent="hud"]
+visible = false
+margin_left = 344.0
+margin_right = 384.0
+margin_bottom = 40.0
+texture = ExtResource( 18 )
+stretch_mode = 4
+
+[node name="weapon_right" type="TextureRect" parent="hud"]
+visible = false
+margin_left = 344.0
+margin_right = 384.0
+margin_bottom = 40.0
+texture = ExtResource( 19 )
+stretch_mode = 4
+
+[node name="weapon_left" type="TextureRect" parent="hud"]
+visible = false
+margin_left = 300.0
+margin_right = 340.0
+margin_bottom = 40.0
+texture = ExtResource( 20 )
+stretch_mode = 4
+
+[node name="bar" type="TextureProgress" parent="hud"]
+margin_left = 15.0
+margin_top = 12.0
+margin_right = 63.0
+margin_bottom = 18.0
+max_value = 48.0
+value = 10.0
+texture_progress = ExtResource( 21 )
+
+[node name="life_bar_ui" type="TextureRect" parent="hud/bar"]
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 55.0
+margin_bottom = 8.0
+texture = ExtResource( 22 )
+stretch_mode = 3
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+texture = ExtResource( 23 )
+energy = 0.5
+shadow_enabled = true
+shadow_gradient_length = 1.0
+shadow_filter = 3
+shadow_filter_smooth = 10.0
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "rien"
+playback_speed = 1.5
+anims/invul = SubResource( 3 )
+anims/rien = SubResource( 4 )
