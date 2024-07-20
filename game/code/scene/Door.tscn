@@ -1,0 +1,160 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://assets/art/tileset/png/tileset.png" type="Texture" id=1]
+[ext_resource path="res://script/DoorPlayerDetector.gd" type="Script" id=2]
+[ext_resource path="res://script/Door.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/sfx/ui/Som porta.mp3" type="AudioStream" id=4]
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 240, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 240, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 192, 64, 32 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 10 ) ],
+"loop": false,
+"name": "close",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": false,
+"name": "closing",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": false,
+"name": "open",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": false,
+"name": "opening",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 16, 14 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 1.06786, 23.7878 )
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 16, 6 )
+
+[sub_resource type="TileSet" id=18]
+0/name = "tileset.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 128, 0, 160, 32 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="Door" type="Node2D"]
+z_index = -1
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 8 )
+animation = "open"
+
+[node name="DoorPlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorPlayerDetector"]
+position = Vector2( 0, -2 )
+shape = SubResource( 9 )
+
+[node name="wall" type="StaticBody2D" parent="DoorPlayerDetector"]
+scale = Vector2( 7.49162, 0.672613 )
+
+[node name="WallLeft" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
+position = Vector2( -3.20358, 8.64011e-07 )
+shape = SubResource( 17 )
+
+[node name="WallRight" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
+position = Vector2( 3.20358, -9.63705e-07 )
+shape = SubResource( 17 )
+
+[node name="Position2D" type="Position2D" parent="DoorPlayerDetector"]
+position = Vector2( 0, -64 )
+
+[node name="DoorBody" type="StaticBody2D" parent="DoorPlayerDetector"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorPlayerDetector/DoorBody"]
+position = Vector2( 0, 6 )
+shape = SubResource( 19 )
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = 2
+tile_set = SubResource( 18 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -2, 0, 0, -1, 0, 2, -65536, 0, 2, -65535, 0, 8 )
+
+[node name="porta" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="DoorPlayerDetector" to="DoorPlayerDetector" method="_on_DoorPlayerDetector_body_entered"]

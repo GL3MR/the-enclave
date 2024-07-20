@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Subindo de nível.mp3-2cf807fa06eb86bb1166294c19dfb490.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/ui/Subindo de nível.mp3"
+dest_files=[ "res://.import/Subindo de nível.mp3-2cf807fa06eb86bb1166294c19dfb490.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

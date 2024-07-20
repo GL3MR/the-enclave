@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Inimigo 1 morrendo.mp3-7cf1e087d1833cab4ba8544a04dff01c.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemies/viper/Inimigo 1 morrendo.mp3"
+dest_files=[ "res://.import/Inimigo 1 morrendo.mp3-7cf1e087d1833cab4ba8544a04dff01c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

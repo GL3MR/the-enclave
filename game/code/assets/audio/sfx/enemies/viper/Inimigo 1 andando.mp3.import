@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Inimigo 1 andando.mp3-f5d96fa9f0ca56a65aa45c008ec8522f.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemies/viper/Inimigo 1 andando.mp3"
+dest_files=[ "res://.import/Inimigo 1 andando.mp3-f5d96fa9f0ca56a65aa45c008ec8522f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

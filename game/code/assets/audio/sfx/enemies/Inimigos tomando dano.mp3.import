@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Inimigos tomando dano.mp3-403f9ac5dc42dc2ce6aa8de2a6566b2f.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemies/Inimigos tomando dano.mp3"
+dest_files=[ "res://.import/Inimigos tomando dano.mp3-403f9ac5dc42dc2ce6aa8de2a6566b2f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

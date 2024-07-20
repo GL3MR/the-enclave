@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Som rifle.mp3-53a44b3f9b8b4103a17a3a9a4d26b575.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/prota/Som rifle.mp3"
+dest_files=[ "res://.import/Som rifle.mp3-53a44b3f9b8b4103a17a3a9a4d26b575.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

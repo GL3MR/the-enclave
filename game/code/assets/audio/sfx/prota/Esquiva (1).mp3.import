@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Esquiva (1).mp3-dba5bf4f757d1c0cb8b19e9f18f793f4.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/prota/Esquiva (1).mp3"
+dest_files=[ "res://.import/Esquiva (1).mp3-dba5bf4f757d1c0cb8b19e9f18f793f4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

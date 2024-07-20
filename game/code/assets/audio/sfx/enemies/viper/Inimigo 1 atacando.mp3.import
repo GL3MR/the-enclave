@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Inimigo 1 atacando.mp3-cb62695e80df01c3141db847b093ab70.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemies/viper/Inimigo 1 atacando.mp3"
+dest_files=[ "res://.import/Inimigo 1 atacando.mp3-cb62695e80df01c3141db847b093ab70.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

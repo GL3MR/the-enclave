@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Derrotando o boss.mp3-b50bae4ebdfe321c795b8aafccaf1e4a.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/bosses/gallantgon/Derrotando o boss.mp3"
+dest_files=[ "res://.import/Derrotando o boss.mp3-b50bae4ebdfe321c795b8aafccaf1e4a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

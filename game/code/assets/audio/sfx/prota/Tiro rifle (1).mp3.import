@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Tiro rifle (1).mp3-876dd0a6991a455d862ec4b7fea58ebf.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/prota/Tiro rifle (1).mp3"
+dest_files=[ "res://.import/Tiro rifle (1).mp3-876dd0a6991a455d862ec4b7fea58ebf.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

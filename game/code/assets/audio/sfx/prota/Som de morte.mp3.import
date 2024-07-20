@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Som de morte.mp3-e3a9636fae6714280c6a49aa9a1635d0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/prota/Som de morte.mp3"
+dest_files=[ "res://.import/Som de morte.mp3-e3a9636fae6714280c6a49aa9a1635d0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
