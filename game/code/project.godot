@@ -19,11 +19,12 @@ boot_splash/bg_color=Color( 0.172549, 0.0705882, 0.188235, 1 )
 
 global="*res://script/global.gd"
 Events="*res://script/events.gd"
+Enums="*res://script/Enums.gd"
 
 [display]
 
 window/size/width=384
-window/size/height=216
+window/size/height=224
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
