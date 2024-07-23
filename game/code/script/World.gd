@@ -42,6 +42,12 @@ onready var player: Node2D = $Player
 func _ready():
 	Events.connect("room_entered", self, "_on_room_entered")
 	
+	Events.batery_count = 0
+	
+	if Storage.tutorial_complete:
+		var offset = Vector2(192, 112)
+		$Player.global_position = $Room6.global_position + offset
+	
 	find_rooms()
 	set_rooms()
 	setup_rooms_with_enemies()

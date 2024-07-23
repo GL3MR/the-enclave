@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Checkpoint.mp3-65e8c73838ad10d5c75f09ba8ab3d59b.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

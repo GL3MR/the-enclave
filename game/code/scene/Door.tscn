@@ -264,18 +264,16 @@ scale = Vector2( 7.49162, 0.672613 )
 
 [node name="WallLeft" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
 position = Vector2( -3.20358, -1.48674 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 17 )
 
 [node name="WallRight" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
 position = Vector2( 3.20358, -1.48674 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 17 )
 
 [node name="Position2D" type="Position2D" parent="DoorPlayerDetector"]
 position = Vector2( 0, -64 )
 
-[node name="DoorBody" type="StaticBody2D" parent="DoorPlayerDetector"]
+[node name="DoorBody" type="StaticBody2D" parent="DoorPlayerDetector" groups=["Door"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorPlayerDetector/DoorBody"]
 position = Vector2( 0, 6 )

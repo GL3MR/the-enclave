@@ -4,20 +4,28 @@ onready var playerBody = null
 onready var player_detector = $PlayerDetector
 onready var ground = $PlayerDetector/ground
 onready var spawn_area = $SpawnArea
+onready var spawn_batery = $SpawnBatery
+var batery = preload("res://scene/Batery.tscn")
 
 var doors = []
 var walls = []
 var positions_spawn = []
 var enemies_data = []
 
-var rng : RandomNumberGenerator
-
 var enemies_in_room = 0
 
 func _ready():
+	if get_name() == Storage.battery_localization and !Storage.puzzle_complete:
+		spawn_batery_instance()
+		
 	find_doors()
 	find_walls()
 	find_positions_spawn()
+
+func spawn_batery_instance():
+	var new_batery = batery.instance()
+	new_batery.global_position = spawn_batery.global_position
+	get_parent().call_deferred("add_child", new_batery)
 
 func find_doors():
 	for child in get_children():
@@ -36,6 +44,16 @@ func find_positions_spawn():
 
 func _on_PlayerDetector_body_entered(body):
 	if body.name == "Player":
+		if self == self.get_parent().get_node("Room6"):
+			Storage.tutorial_complete = true
+			Storage.save_game_data()
+			
+			if !doors[2].is_close_door():
+					doors[2].close_door()
+			
+			if !doors[3].is_close_door():
+					doors[3].close_door()
+		
 		playerBody = body
 		
 		spawn_enemies()
@@ -75,7 +93,10 @@ func update_doors():
 					door.close_door()
 	else:
 		for door in doors:
-			if !door.is_open_door():
+			if self == self.get_parent().get_node("Room6") and (door.get_name() == "DoorLeft" or door.get_name() == "DoorDown"):
+				if !door.is_close_door():
+					door.close_door()
+			elif !door.is_open_door():
 				door.open_door()
 
 func set_room(options):

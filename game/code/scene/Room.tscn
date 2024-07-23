@@ -16,7 +16,7 @@ position = Vector2( 192, 112 )
 z_index = -1
 texture = ExtResource( 5 )
 
-[node name="walls" type="StaticBody2D" parent="."]
+[node name="walls" type="StaticBody2D" parent="." groups=["Walls"]]
 
 [node name="wall_northeast" type="CollisionPolygon2D" parent="walls"]
 position = Vector2( 32, 0 )
@@ -535,6 +535,9 @@ rotation = 3.14159
 visible = false
 position = Vector2( 0, 144 )
 rotation = 4.71239
+
+[node name="SpawnBatery" type="Position2D" parent="."]
+position = Vector2( 192, 80 )
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_body_exited"]

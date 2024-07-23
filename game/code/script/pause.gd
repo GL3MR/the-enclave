@@ -8,6 +8,7 @@ func _on_continue_pressed():
 
 func _on_relancer_pressed():
 	global.menu()
+	Storage.load_game_data()
 	var _result = get_tree().change_scene("res://scene/World.tscn")
 	_result = null
 
