@@ -4,10 +4,10 @@ export(PackedScene) var projectile_scene
 var life = 4
 var damage = 3
 var projectile_cooldown = 1
-var player
+var player = null
 var localization: Node2D
 var can_shoot = true
-
+var player_side = 1
 
 func _ready():
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
@@ -15,6 +15,11 @@ func _ready():
 	idle()
 
 func _process(delta):
+	if player: player_side = player.position.x - position.x
+	if player_side < 0:
+		$SpirkAnimation.flip_h = true
+	else:
+		$SpirkAnimation.flip_h = false
 	if can_shoot:
 		attack()
 
@@ -35,12 +40,15 @@ func _on_enemy_room_entered(body, room):
 
 # Setup 
 func idle():
+	print("Idle")
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "idle"
 	$SpirkAnimation.play()
 
 # Gerar e disparar projetil
 func attack():
+	print("Attack")
+	can_shoot = false
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "attack"
 	$SpirkAnimation.play()
@@ -53,6 +61,7 @@ func walk():
 
 # Animação de morte e deleção do objeto
 func die():
+	print("Die")
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "dead"
 	$SpirkAnimation.play()
@@ -60,6 +69,7 @@ func die():
 
 
 func damage(amount):
+	print("-", str(amount))
 	life -= amount
 	if life <= 0:
 		die()
@@ -73,12 +83,16 @@ func _on_TimerDeath_timeout():
 
 # Cria e dispara um projétil e ativa um tempo de cooldown
 func _on_TimerAttack_timeout():
-	var ball = projectile_scene
-	ball.position = self.position
-	ball.linear_velocity(Vector2(300,0))
+	var direction_vector = player.position - position
+	direction_vector.y += 8 # corrige trajetoria da bola pra mirar no meio do sprite
+	var ball = projectile_scene.instance()
+	var angle = direction_vector.angle() - PI/2
+	print("angle ", angle)
+	ball.linear_velocity = Vector2(0,200).rotated(angle)
+	print("ball.linear_velocity ", str(ball.linear_velocity))
 	add_child(ball)
-	can_shoot = false
 	$TimerCooldown.start()
+	idle()
 
 # Quando acabar o spirk pode atacar novamente
 func _on_TimerCooldown_timeout():
