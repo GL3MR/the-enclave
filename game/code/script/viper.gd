@@ -45,7 +45,7 @@ func attack(body):
 
 func _on_Detection_body_entered(body):
 	player2 = body
-	player_chase = true
+	#player_chase = true
 	
 func _on_Detection_body_exited(body):
 	pass

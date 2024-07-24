@@ -29,10 +29,11 @@ var options_rooms = [
 ]
 
 var enemies_rooms = [
-#	[],
-#	[
-#		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-#	],
+	[],
+	[
+		#{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 1}
+	],
 	[]
 ]
 

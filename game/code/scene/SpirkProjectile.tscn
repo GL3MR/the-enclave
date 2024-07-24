@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/art/enemies/spirk/png/projectile/Sprite-projectile-4.png" type="Texture" id=1]
+[ext_resource path="res://script/SpirkProjectile.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/enemies/spirk/png/projectile/Sprite-projectile-2.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/enemies/spirk/png/projectile/Sprite-projectile-3.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/enemies/spirk/png/projectile/Sprite-projectile-1.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "pulsing",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 5.0
+
+[node name="SpirkProjectile" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource( 2 )
+
+[node name="SpirkProjectileAnimation" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "pulsing"
+
+[node name="ProjectileHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
