@@ -8,6 +8,9 @@ var player = null
 var localization: Node2D
 var can_shoot = true
 var player_side = 1
+var fleeing = false
+var speed = 50
+var player_distance
 
 func _ready():
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
@@ -15,13 +18,16 @@ func _ready():
 	idle()
 
 func _process(delta):
-	if player: player_side = player.position.x - position.x
+	if player:
+		player_side = player.position.x - position.x
 	if player_side < 0:
 		$SpirkAnimation.flip_h = true
 	else:
 		$SpirkAnimation.flip_h = false
-	if can_shoot:
+	if can_shoot and not fleeing:
 		attack()
+	elif fleeing:
+		walk(delta)
 
 func _on_player_room_entered(body, room):
 	if is_in_room(room):
@@ -54,9 +60,13 @@ func attack():
 	
 	
 # Quando o player chegar perto, ele deve fugir
-func walk():
-	pass
-
+func walk(delta):
+	var direction = self.position - player.position
+	print("self: ", self.position)
+	print("player: ", player.position)
+	print("direction ", direction)
+	position += direction.normalized() * delta * speed
+	
 # Animação de morte e deleção do objeto
 func die():
 	$SpirkAnimation.stop()
@@ -94,5 +104,19 @@ func _on_TimerCooldown_timeout():
 
 
 func _on_NearArea_body_entered(body):
+	$SpirkAnimation.stop()
+	$SpirkAnimation.animation = "walk"
+	$SpirkAnimation.play()
 	if body == player:
+		fleeing = true
+		$SpirkAnimation.flip_h = not $SpirkAnimation.flip_h
 		print("perto demais")
+
+
+
+
+func _on_FarArea_body_exited(body):
+	if body == player:
+		fleeing = false
+		if not can_shoot: 
+			idle()
