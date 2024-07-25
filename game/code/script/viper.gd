@@ -15,18 +15,29 @@ var stop_distance = 10
 var is_attacking = false
 onready var timer := $atkcooldown as Timer
 onready var timer2 := $animation as Timer
-var life = 4
-var damage = 1
+var life = 6
+var damage = 3
 var cooldown = true
 onready var player_a = get_tree().get_nodes_in_group("hero")
 onready var player = player_a[0]
 var loot = preload("res://scene/loot.tscn")
 var pos = null
 var localization: Node2D
+var is_defect: bool = false
+
+var in_dialog = false
 
 func _ready():
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
 	Events.connect("enemy_room_entered", self, "_on_enemy_room_entered")
+	Events.connect("in_dialog", self, "_on_in_dialog")
+	Events.connect("timeline_ended", self, "on_timeline_ended")
+
+func _on_in_dialog():
+	in_dialog = true
+
+func on_timeline_ended():
+	in_dialog = false
 
 func _on_player_room_entered(body, room):
 	if is_in_room(room):
@@ -44,14 +55,17 @@ func attack(body):
 	player_chase = true
 
 func _on_Detection_body_entered(body):
-	player2 = body
-	player_chase = true
+	pass
 	
 func _on_Detection_body_exited(body):
 	pass
 
 func _physics_process(delta):
-	if life != 0 and !animationAtk:
+	if life != 0 and is_defect:
+		$AnimatedSprite.play("idle")
+	elif life != 0 and in_dialog:
+		$AnimatedSprite.play("idle")
+	elif life != 0 and !animationAtk:
 		if player_chase:
 			var distance_to_player = player2.position.distance_to(position)
 			
@@ -69,7 +83,7 @@ func _physics_process(delta):
 				else:
 					$AnimatedSprite.flip_h = false
 			elif inatkzone:
-				if body2.is_in_group("hero") and cooldown:
+				if body2.is_in_group("hero") and cooldown and !body2.invinsible:
 					audio_ataque.play()
 					$AnimatedSprite.play("atk")
 					animationAtk = true
@@ -106,6 +120,7 @@ func damage(damage):
 					door.open() 
 		$AnimatedSprite.play("death")
 	else:
+		$effect.play("damage")
 		audio_dano.play()
 
 
@@ -115,21 +130,29 @@ func _on_atkcooldown_timeout():
 	
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "death":
-		my_function()
+		drop_loot()
 	if $AnimatedSprite.animation == "atk":
 		animationAtk = false
 	$AnimatedSprite.play("idle")
 		
-func my_function():
-	var nb
-	nb = randi()%100
-	if nb < 100:
-		var newloot = loot.instance()
-		get_parent().add_child(newloot)
-		newloot.position = pos
+func drop_loot():
+	if !is_defect:
+		var nb
+		nb = randi()%100
+		if nb < 10:
+			var newloot = loot.instance()
+			get_parent().add_child(newloot)
+			newloot.position = pos
+	else:
+		Events.emit_tutorial_enemy_dead(self.global_position)
+		Events.emit_tutorial_player_attacked()
 	queue_free() 
 
 
 func _on_animation_timeout():
-	if body2 != null and body2.is_in_group("hero"):
-		body2.hit(1)	
+	if body2 != null and body2.is_in_group("hero") and life != 0:
+		body2.hit(damage)
+
+
+func _on_effect_animation_finished(anim_name):
+	$effect.play("idle")

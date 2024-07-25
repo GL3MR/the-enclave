@@ -25,16 +25,21 @@ func init(allie_, damage_, speed_, tde_life, dimension, apparence, dir, pos, rot
 	var angle 
 	angle =  rad2deg(atan2(dir.y, dir.x))
 	self.position = pos
-	self.position.y +=  9
-	$area/col.position.x += 8
-	if(flip):
-		 self.position.x +=  6
-	else:
-		self.position.x -= 6
+#	self.position.y +=  9
+	if apparence == 0:
+		$area/col.position.x += 18
+	elif apparence == 1:
+		$area/col.position.x +=21
+	elif apparence == 2:
+		$area/col.position.x +=16
+#	if(flip):
+#		 self.position.x +=  6
+#	else:
+#		self.position.x -= 6
 	if rot:
 		rotation_degrees = angle
 	$apparence.play("weapon" + str(apparence))
-	$area / col.shape.extents = dimension
+	$area/col.shape.extents = dimension / 2
 
 func _physics_process(delta):
 	move_and_slide(dir * speed_) 

@@ -12,7 +12,8 @@ func _on_Batery_body_entered(body):
 		sprite_batery_shadow.set_deferred("visible", false)
 		colission_batery.set_deferred("disabled", true)
 		Events.batery_count += 1
-		print(Events.batery_count)
+		
+	
 
 func _on_energy_finished():
 	queue_free()

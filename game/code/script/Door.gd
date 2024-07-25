@@ -54,10 +54,11 @@ func open_door():
 			animated_sprite.play("opening_" + color)
 		elif !in_puzzle:
 			animated_sprite.play("opening_" + color)
-	audio_porta.play()  
+	audio_porta.play()   
 
 func close_door():
 	if color:
+		collision_shape.set_deferred("disabled", false)
 		animated_sprite.play("closing_" + color) 
 	audio_porta.play()  
 	

@@ -6,19 +6,18 @@ var target_rotation = 0
 var target_rotation_current = 0
 
 var life: int
-var max_life = 25 
+var max_life = 25
 var timer = null 
 var speed = 100  
-var dash_speed = 200 
+var dash_speed = 160 
 var invinsible = false 
 
 var flip = true
 
 var stat_weapon = [
-	{"damage_": 2, "speed_": 0, "lifespan_": 0.4, "dimension_": Vector2(12, 20), "rotate_": true}, 
-	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(4, 1), "rotate_": true}, 
-	{"damage_": 1, "speed_": 0, "lifespan_": 1, "dimension_": Vector2(8, 8), "rotate_": true}, 
-	{"damage_": 0, "speed_": 0, "lifespan_": 2, "dimension_": Vector2(10, 10), "rotate_": false}
+	{"damage_": 2, "speed_": 10, "lifespan_": 0.3, "dimension_": Vector2(22, 38), "rotate_": true}, 
+	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(9, 6), "rotate_": true}, 
+	{"damage_": 3, "speed_": 0, "lifespan_": 0.7, "dimension_": Vector2(28, 10), "rotate_": true}
 ]
 
 var id_weapon = 0  
@@ -36,21 +35,48 @@ var direction = Vector2(0, -1)
 var true_direction = Vector2(0, 0)
 var dashing = false 
 var atacking = false 
+var dying = false 
 
 var timer_dash
 var timer_att
-var timer_invul
+var timer_damage
+var timer_death
+
+var angle_weapon_1 = 0
+
+var in_dialog = false
 
 func _ready():
+	
 	life = max_life
 	$hud/lifebar.value = life * 3  
 
+	$weapon.play(str(id_weapon))
+	
+	Events.connect("in_dialog", self, "_on_in_dialog")
+	Events.connect("timeline_ended", self, "on_timeline_ended")
+
 func _physics_process(delta):
 	$hud/lifebar.value = life * 3
+	
+	var dir = get_direction()
 
-	if not dashing and not atacking:
+	var angle 
+	angle =  rad2deg(atan2(dir.y, dir.x))
+
+	if(id_weapon == 1 or id_weapon == 2):
+		$weapon.rotation_degrees = angle + 90
+#		$weapon.position.y = 8
+	else:
+		$weapon.rotation_degrees = angle + angle_weapon_1
+
+	if in_dialog:
+		anim_switch("idle")
+	elif not dashing and not dying and not (id_weapon == 2 and atacking):
 		true_direction = Vector2.ZERO
-
+		
+		Events.emit_tutorial_player_moved()
+		
 		if Input.is_action_pressed("move_right"):
 			true_direction.x += 1
 		if Input.is_action_pressed("move_left"):
@@ -81,9 +107,22 @@ func _physics_process(delta):
 
 			if $sprite.flip_h:
 				$shadow.position.x = -1
+				
+#				if(id_weapon == 1 or id_weapon == 2):
+#					$weapon.position.x = -4
+#				else:
+#					$weapon.position.x = -6
+				
 				flip = false
 			else:
 				$shadow.position.x = 0
+				
+#				if(id_weapon == 1 or id_weapon == 2):
+#					$weapon.position.x = 4
+#				else:
+#					$weapon.position.x = 6
+				
+				
 				flip = true
 
 		if true_direction != Vector2.ZERO:
@@ -96,13 +135,36 @@ func _physics_process(delta):
 			if action == 1:
 				dash()
 
-		if Input.is_action_just_pressed("attaque") and not has_node("InGameMenu"):
+		elif Input.is_action_just_pressed("attaque") and not has_node("InGameMenu") and not atacking:
 			attack()
 
 	elif dashing:
 		move_and_slide(direction * dash_speed)
+		
+		if Input.is_action_just_pressed("attaque") and not has_node("InGameMenu") and not atacking and !(id_weapon == 2):
+			attack()
+	else:
+		$anim.play("idle")
+
+func _on_in_dialog():
+	in_dialog = true
+
+func on_timeline_ended():
+	in_dialog = false
+
+	if in_dialog:
+		anim_switch("idle")
+
+func switch_weapon_up():
+	id_weapon = (id_weapon + 1) % id_weapon_number
+	apparence_hud()
+
+func switch_weapon_down():
+	id_weapon = (id_weapon - 1 + id_weapon_number) % id_weapon_number
+	apparence_hud()
 
 func switch():
+	Events.emit_tutorial_weapon_wheel_opened()
 	id_weapon = (id_weapon + 1) % id_weapon_number
 	if not has_node("InGameMenu"):
 		var pack_menu = preload("res://scene/item_menu.tscn")
@@ -112,11 +174,13 @@ func switch():
 	else:
 		$InGameMenu.switch(id_weapon)
 	apparence_hud()
+	$weapon.play(str(id_weapon))
 
 func apparence_hud():
 	$hud/weapon_switch.set_texture(load(path_weapon[id_weapon]))
 
 func dash():
+	Events.emit_tutorial_player_dashed()
 	dashing = true
 	timer_dash = Timer.new()
 	timer_dash.set_wait_time(0.2)
@@ -129,51 +193,115 @@ func dash():
 	direction = true_direction 
 
 func attack():
-	atacking = true
-	timer_att = Timer.new()
-	timer_att.set_wait_time(0.4)
-	timer_att.connect("timeout", self, "_on_timeratt_timeout")
-	add_child(timer_att)
-	timer_att.start()
+	if angle_weapon_1 == 0:
+		angle_weapon_1 = 180
+	else:
+		angle_weapon_1 = 0
 	var pack_proj = preload("res://scene/projectile.tscn")
 	var inst_proj = pack_proj.instance()
 	var stat = stat_weapon[id_weapon]
-	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), position, stat.rotate_, flip)
+	atacking = true
+	if id_weapon == 2:
+		$weapon.visible = false
+	timer_att = Timer.new()
+	if id_weapon == 1:
+		timer_att.set_wait_time(0.2)
+	else:
+		timer_att.set_wait_time(stat.lifespan_)
+	timer_att.connect("timeout", self, "_on_timeratt_timeout")
+	add_child(timer_att)
+	timer_att.start()
+	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip)
 	get_parent().add_child(inst_proj)
 	inst_proj.raise()
+	if id_weapon != 2:
+		$weapon.play("attack_" + (str(id_weapon)))
 
 func hit(dmg):
 	if not invinsible:
 		invinsible = true
 		life = max(0, life - dmg)
-		timer_invul = Timer.new()
-		timer_invul.set_wait_time(.5)
-		timer_invul.connect("timeout", self, "_on_timerinvul_timeout")
-		add_child(timer_invul)
-		timer_invul.start()
+		timer_damage = Timer.new()
+		timer_damage.set_wait_time(.5)
+		timer_damage.connect("timeout", self, "_on_timerdamage_timeout")
+		add_child(timer_damage)
+		timer_damage.start()
+		$effect.play("damage")
 		$hud/lifebar.value = life * 3
 		if life == 0:
-			get_tree().change_scene("res://scene/game_over.tscn")
+			dying = true
+			timer_death= Timer.new()
+			timer_death.set_wait_time(1)
+			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
+			add_child(timer_death)
+			timer_death.start()
+			anim_switch("dead")
+
 
 func _on_timeratt_timeout():
 	timer_att.queue_free()
 	atacking = false
+	$weapon.visible = true
 
 func _on_timerdash_timeout():
+	creat_dash_effect()
 	timer_dash.queue_free()
 	dashing = false
 
-func _on_timerinvul_timeout():
+func _on_timerdamage_timeout():
 	invinsible = false
-	timer_invul.queue_free()
+	timer_damage.queue_free()
+	$effect.play("idle")
+
+func _on_timerdeath_timeout():
+	timer_death.queue_free()
+	get_tree().change_scene("res://scene/game_over.tscn")
 
 func return_position():
 	return self.position
 
 func anim_switch(animation):
 	var new_anim = str(animation)
-	if animation_player.current_animation != new_anim:
+	if animation_player.current_animation != new_anim:	
 		animation_player.play(new_anim)
 
 func get_direction() -> Vector2:
 	return global_position.direction_to(get_global_mouse_position())
+	
+
+func creat_dash_effect():
+	var player_copy_node = $sprite.duplicate()
+	get_parent().add_child(player_copy_node)
+	player_copy_node.global_position = global_position
+
+	# Ajuste a modulação para 0.2 no início
+	player_copy_node.modulate.a = 0.75
+	
+	# Crie um Tween para animar a opacidade
+	var tween = Tween.new()
+	player_copy_node.add_child(tween)
+	tween.interpolate_property(player_copy_node, "modulate:a", 0.2, 0, 0.75, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+
+	# Use um Timer para remover o sprite duplicado após a animação
+	var removal_timer = Timer.new()
+	removal_timer.set_wait_time(0.5)
+	removal_timer.connect("timeout", player_copy_node, "queue_free")
+	player_copy_node.add_child(removal_timer)
+	removal_timer.start()
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_WHEEL_UP and event.is_pressed() and !atacking:
+			Events.emit_tutorial_weapon_wheel_opened()
+			switch_weapon_up()
+			$weapon.play(str(id_weapon))
+		elif event.button_index == BUTTON_WHEEL_DOWN and event.is_pressed() and !atacking:
+			Events.emit_tutorial_weapon_wheel_opened()
+			switch_weapon_down()
+			$weapon.play(str(id_weapon))
+
+
+func _on_weapon_animation_finished():
+	if $weapon.animation == "attack_" + str(id_weapon):
+		$weapon.play(str(id_weapon))

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sprite-weapon-full.png-647a54399dbe3ec81d829461170f7ced.stex"
+path="res://.import/Sprite-weapon-saber.png-e70a145a8a4e20e3ef026dc9ae970ce8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/weapon/png/Sprite-weapon-full.png"
-dest_files=[ "res://.import/Sprite-weapon-full.png-647a54399dbe3ec81d829461170f7ced.stex" ]
+source_file="res://assets/art/weapon/png/Sprite-weapon-saber.png"
+dest_files=[ "res://.import/Sprite-weapon-saber.png-e70a145a8a4e20e3ef026dc9ae970ce8.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
