@@ -24,9 +24,14 @@ func _process(delta):
 		attack()
 
 func _on_player_room_entered(body, room):
-
+	print("Spirk: _on_player_room_entered")
 	if is_in_room(room):
 		player = body
+
+func _on_enemy_room_entered(body, room):
+	print("Spirk: _on_enemy_room_entered")
+	if self == body:
+		localization = room 
 
 # Despawn quando muda de sala
 func _on_VisibilityNotifier2D_screen_exited():
@@ -34,20 +39,15 @@ func _on_VisibilityNotifier2D_screen_exited():
 	
 func is_in_room(room):
 	return localization == room
-func _on_enemy_room_entered(body, room):
-	if self == body:
-		localization = room 
 
 # Setup 
 func idle():
-	print("Idle")
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "idle"
 	$SpirkAnimation.play()
 
 # Gerar e disparar projetil
 func attack():
-	print("Attack")
 	can_shoot = false
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "attack"
@@ -69,7 +69,6 @@ func die():
 
 
 func damage(amount):
-	print("-", str(amount))
 	life -= amount
 	if life <= 0:
 		die()
@@ -87,9 +86,7 @@ func _on_TimerAttack_timeout():
 	direction_vector.y += 8 # corrige trajetoria da bola pra mirar no meio do sprite
 	var ball = projectile_scene.instance()
 	var angle = direction_vector.angle() - PI/2
-	print("angle ", angle)
 	ball.linear_velocity = Vector2(0,200).rotated(angle)
-	print("ball.linear_velocity ", str(ball.linear_velocity))
 	add_child(ball)
 	$TimerCooldown.start()
 	idle()
