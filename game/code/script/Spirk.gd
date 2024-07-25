@@ -24,12 +24,10 @@ func _process(delta):
 		attack()
 
 func _on_player_room_entered(body, room):
-	print("Spirk: _on_player_room_entered")
 	if is_in_room(room):
 		player = body
 
 func _on_enemy_room_entered(body, room):
-	print("Spirk: _on_enemy_room_entered")
 	if self == body:
 		localization = room 
 
@@ -61,7 +59,6 @@ func walk():
 
 # Animação de morte e deleção do objeto
 func die():
-	print("Die")
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "dead"
 	$SpirkAnimation.play()
@@ -85,8 +82,8 @@ func _on_TimerAttack_timeout():
 	var direction_vector = player.position - position
 	direction_vector.y += 8 # corrige trajetoria da bola pra mirar no meio do sprite
 	var ball = projectile_scene.instance()
-	var angle = direction_vector.angle() - PI/2
-	ball.linear_velocity = Vector2(0,200).rotated(angle)
+	var angle = direction_vector.angle()
+	ball.linear_velocity = Vector2(200,0).rotated(angle)
 	add_child(ball)
 	$TimerCooldown.start()
 	idle()
@@ -94,3 +91,8 @@ func _on_TimerAttack_timeout():
 # Quando acabar o spirk pode atacar novamente
 func _on_TimerCooldown_timeout():
 	can_shoot = true
+
+
+func _on_NearArea_body_entered(body):
+	if body == player:
+		print("perto demais")
