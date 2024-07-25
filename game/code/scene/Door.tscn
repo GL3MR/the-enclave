@@ -216,7 +216,7 @@ animations = [ {
 extents = Vector2( 16, 14 )
 
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 1.06786, 19.3102 )
+extents = Vector2( 1.06786, 20.81 )
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 16, 6 )
@@ -263,11 +263,12 @@ shape = SubResource( 9 )
 scale = Vector2( 7.49162, 0.672613 )
 
 [node name="WallLeft" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
-position = Vector2( -3.20358, -1.48674 )
+position = Vector2( -3.20358, 2.97783 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 17 )
 
 [node name="WallRight" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
-position = Vector2( 3.20358, -1.48674 )
+position = Vector2( 3.20358, 2.97348 )
 shape = SubResource( 17 )
 
 [node name="Position2D" type="Position2D" parent="DoorPlayerDetector"]

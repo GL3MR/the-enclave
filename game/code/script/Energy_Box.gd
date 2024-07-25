@@ -21,7 +21,7 @@ func _process(delta):
 			if door.get_parent() == self.get_parent().get_node("Room6"):
 				Storage.puzzle_complete = true
 				Storage.save_game_data()
-		print("Interacted with Energy_Box")
+				get_parent().start_dialogue("sala-principal-puzzle")
 
 func _on_Energy_Box_body_entered(body):
 	if body.is_in_group("Door"):

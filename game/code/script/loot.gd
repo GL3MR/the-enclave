@@ -1,6 +1,6 @@
 extends Area2D
 
-var regen = 2
+var regen = 5
 onready var player_a = get_tree().get_nodes_in_group("hero") 
 onready var player = player_a[0]
 onready var audio_energy: AudioStreamPlayer2D = $energy

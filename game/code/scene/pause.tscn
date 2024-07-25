@@ -9,9 +9,6 @@ layer = 2
 [node name="pause" type="Control" parent="."]
 pause_mode = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="pause"]
 margin_right = 426.0

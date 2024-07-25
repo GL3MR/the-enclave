@@ -1,0 +1,70 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 1,
+			"animation_wait": true,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Olá, android! Bem-vindo à simulação do Enclave."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Este teste foi projetado para avaliar suas habilidades."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Eu sou a IA assistente, sua guia e, infelizmente, seu juiz."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Esta simulação foi criada pelo Enclave para testar sua capacidade de sobreviver e resolver problemas."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Você vê duas portas à sua frente. A verde leva você ao tutorial, e a azul... bem, é para os corajosos que preferem pular o tutorial."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Boa sorte, ou algo assim."
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.5.1",
+		"file": "timeline-1721766450.json",
+		"name": "start"
+	}
+}

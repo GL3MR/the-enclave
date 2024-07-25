@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/art/tileset/png/tileset-wall.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 14 )
+extents = Vector2( 32, 16 )
 
 [node name="Wall" type="Node2D"]
 script = ExtResource( 2 )
@@ -16,7 +16,7 @@ texture = ExtResource( 3 )
 [node name="WallBody" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBody"]
-position = Vector2( 32, 14 )
+position = Vector2( 32, 16 )
 shape = SubResource( 2 )
 
 [connection signal="visibility_changed" from="." to="." method="_on_Wall_visibility_changed"]

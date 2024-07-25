@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scene/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/art/menu_and_ui/logo_the_enclave/gl3mr.png" type="Texture" id=2]
@@ -21,6 +21,9 @@ func _ready() -> void:
 func _on_room_entered(room):
 	global_position = room.global_position
 "
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 24 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 6 )
@@ -129,3 +132,83 @@ rotation = 1.5708
 [node name="Energy_Box2" parent="." instance=ExtResource( 9 )]
 position = Vector2( -16, -160 )
 rotation = 1.5708
+
+[node name="AreaTutorial3" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaTutorial3"]
+position = Vector2( -768, -224 )
+polygon = PoolVector2Array( 144, 192, 128, 192, 128, 112, 256, 112, 256, 192, 240, 192, 240, 128, 144, 128 )
+
+[node name="ZonasDialogos" type="Node2D" parent="."]
+
+[node name="Dialogo_Start" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Start"]
+position = Vector2( 192, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_1" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_1"]
+position = Vector2( -56, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_2" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_2"]
+position = Vector2( -440, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_3" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_3"]
+position = Vector2( -576, -56 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_4" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_4"]
+position = Vector2( -328, -112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_sala_princial_tutorial" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_sala_princial_tutorial"]
+position = Vector2( 56, -112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_sala_princial_sem_tutorial" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_sala_princial_sem_tutorial"]
+position = Vector2( 192, -56 )
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="AreaTutorial3" to="." method="_on_AreaTutorial3_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Start" to="." method="_on_Dialogo_Start_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_1" to="." method="_on_Dialogo_Tutorial_1_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_2" to="." method="_on_Dialogo_Tutorial_2_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_3" to="." method="_on_Dialogo_Tutorial_3_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_4" to="." method="_on_Dialogo_Tutorial_4_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_sala_princial_tutorial" to="." method="_on_Dialogo_sala_princial_tutorial_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_sala_princial_sem_tutorial" to="." method="_on_Dialogo_sala_princial_sem_tutorial_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

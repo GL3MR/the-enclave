@@ -1,6 +1,6 @@
 extends Node
 
-var id_weapon_number = 1
+var id_weapon_number = 3
 
 func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
