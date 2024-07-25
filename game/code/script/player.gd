@@ -6,7 +6,7 @@ var target_rotation = 0
 var target_rotation_current = 0
 
 var life: int
-var max_life = 25 
+var max_life = 25
 var timer = null 
 var speed = 100  
 var dash_speed = 200 
@@ -15,10 +15,9 @@ var invinsible = false
 var flip = true
 
 var stat_weapon = [
-	{"damage_": 2, "speed_": 0, "lifespan_": 0.4, "dimension_": Vector2(12, 20), "rotate_": true}, 
-	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(4, 1), "rotate_": true}, 
-	{"damage_": 1, "speed_": 0, "lifespan_": 1, "dimension_": Vector2(8, 8), "rotate_": true}, 
-	{"damage_": 0, "speed_": 0, "lifespan_": 2, "dimension_": Vector2(10, 10), "rotate_": false}
+	{"damage_": 1, "speed_": 0, "lifespan_": 0.4, "dimension_": Vector2(14, 22), "rotate_": true}, 
+	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(4, 4), "rotate_": true}, 
+	{"damage_": 3, "speed_": 0, "lifespan_": 0.4, "dimension_": Vector2(16, 10), "rotate_": true}
 ]
 
 var id_weapon = 0  
@@ -36,10 +35,12 @@ var direction = Vector2(0, -1)
 var true_direction = Vector2(0, 0)
 var dashing = false 
 var atacking = false 
+var dying = false 
 
 var timer_dash
 var timer_att
-var timer_invul
+var timer_damage
+var timer_death
 
 func _ready():
 	life = max_life
@@ -47,8 +48,21 @@ func _ready():
 
 func _physics_process(delta):
 	$hud/lifebar.value = life * 3
+	
+	var dir = get_direction()
+	
+	var angle 
+	angle =  rad2deg(atan2(dir.y, dir.x))
+	
+	$weapon.play(str(id_weapon))
 
-	if not dashing and not atacking:
+	if(id_weapon == 1 or id_weapon == 2):
+		$weapon.rotation_degrees = angle + 90
+		$weapon.position.y = 8
+	else:
+		$weapon.rotation_degrees = angle
+
+	if not dashing and not atacking and not dying:
 		true_direction = Vector2.ZERO
 
 		if Input.is_action_pressed("move_right"):
@@ -81,9 +95,22 @@ func _physics_process(delta):
 
 			if $sprite.flip_h:
 				$shadow.position.x = -1
+				
+				if(id_weapon == 1 or id_weapon == 2):
+					$weapon.position.x = -4
+				else:
+					$weapon.position.x = -6
+				
 				flip = false
 			else:
 				$shadow.position.x = 0
+				
+				if(id_weapon == 1 or id_weapon == 2):
+					$weapon.position.x = 4
+				else:
+					$weapon.position.x = 6
+				
+				
 				flip = true
 
 		if true_direction != Vector2.ZERO:
@@ -130,6 +157,7 @@ func dash():
 
 func attack():
 	atacking = true
+	$weapon.visible = false
 	timer_att = Timer.new()
 	timer_att.set_wait_time(0.4)
 	timer_att.connect("timeout", self, "_on_timeratt_timeout")
@@ -146,34 +174,71 @@ func hit(dmg):
 	if not invinsible:
 		invinsible = true
 		life = max(0, life - dmg)
-		timer_invul = Timer.new()
-		timer_invul.set_wait_time(.5)
-		timer_invul.connect("timeout", self, "_on_timerinvul_timeout")
-		add_child(timer_invul)
-		timer_invul.start()
+		timer_damage = Timer.new()
+		timer_damage.set_wait_time(.5)
+		timer_damage.connect("timeout", self, "_on_timerdamage_timeout")
+		add_child(timer_damage)
+		timer_damage.start()
+		$effect.play("damage")
 		$hud/lifebar.value = life * 3
 		if life == 0:
-			get_tree().change_scene("res://scene/game_over.tscn")
+			dying = true
+			timer_death= Timer.new()
+			timer_death.set_wait_time(1)
+			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
+			add_child(timer_death)
+			timer_death.start()
+			anim_switch("dead")
+
 
 func _on_timeratt_timeout():
 	timer_att.queue_free()
 	atacking = false
+	$weapon.visible = true
 
 func _on_timerdash_timeout():
+	creat_dash_effect()
 	timer_dash.queue_free()
 	dashing = false
 
-func _on_timerinvul_timeout():
+func _on_timerdamage_timeout():
 	invinsible = false
-	timer_invul.queue_free()
+	timer_damage.queue_free()
+	$effect.play("idle")
+
+func _on_timerdeath_timeout():
+	timer_death.queue_free()
+	get_tree().change_scene("res://scene/game_over.tscn")
 
 func return_position():
 	return self.position
 
 func anim_switch(animation):
 	var new_anim = str(animation)
-	if animation_player.current_animation != new_anim:
+	if animation_player.current_animation != new_anim:	
 		animation_player.play(new_anim)
 
 func get_direction() -> Vector2:
 	return global_position.direction_to(get_global_mouse_position())
+	
+
+func creat_dash_effect():
+    var player_copy_node = $sprite.duplicate()
+    get_parent().add_child(player_copy_node)
+    player_copy_node.global_position = global_position
+
+    # Ajuste a modulação para 0.2 no início
+    player_copy_node.modulate.a = 0.75
+    
+    # Crie um Tween para animar a opacidade
+    var tween = Tween.new()
+    player_copy_node.add_child(tween)
+    tween.interpolate_property(player_copy_node, "modulate:a", 0.2, 0, 0.75, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+    tween.start()
+
+    # Use um Timer para remover o sprite duplicado após a animação
+    var removal_timer = Timer.new()
+    removal_timer.set_wait_time(0.5)
+    removal_timer.connect("timeout", player_copy_node, "queue_free")
+    player_copy_node.add_child(removal_timer)
+    removal_timer.start()

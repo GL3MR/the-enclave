@@ -218,14 +218,13 @@ margin_bottom = 40.0
 
 [node name="roue" type="Sprite" parent="hudroue"]
 position = Vector2( 192, 112 )
-scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 4 )
 
 [node name="button_weapon" parent="hudroue" instance=ExtResource( 2 )]
 margin_left = 176.0
-margin_top = 96.0
+margin_top = 49.0
 margin_right = 208.0
-margin_bottom = 128.0
+margin_bottom = 81.0
 focus_mode = 0
 enabled_focus_mode = 0
 
@@ -236,10 +235,10 @@ texture = ExtResource( 7 )
 stretch_mode = 4
 
 [node name="button_weapon2" parent="hudroue" instance=ExtResource( 2 )]
-margin_left = 176.0
-margin_top = 96.0
-margin_right = 208.0
-margin_bottom = 128.0
+margin_left = 130.0
+margin_top = 106.0
+margin_right = 162.0
+margin_bottom = 138.0
 focus_mode = 0
 enabled_focus_mode = 0
 id = 1
@@ -251,10 +250,10 @@ texture = ExtResource( 5 )
 stretch_mode = 3
 
 [node name="button_weapon3" parent="hudroue" instance=ExtResource( 2 )]
-margin_left = 176.0
-margin_top = 96.0
-margin_right = 208.0
-margin_bottom = 128.0
+margin_left = 222.0
+margin_top = 106.0
+margin_right = 254.0
+margin_bottom = 138.0
 focus_mode = 0
 enabled_focus_mode = 0
 id = 2
@@ -274,8 +273,8 @@ anims/open = SubResource( 2 )
 anims/rien = SubResource( 3 )
 
 [node name="Label" type="Label" parent="hudroue"]
-margin_left = 175.0
-margin_top = 128.0
+margin_left = 162.0
+margin_top = 129.0
 margin_right = 211.0
 margin_bottom = 148.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )

@@ -1,8 +1,9 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://script/projectile.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/weapon/png/buster-projectile.png" type="Texture" id=2]
 [ext_resource path="res://assets/art/weapon/png/Sprite-weapon-animation-saber.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/weapon/png/Sprite-weapon-animation-puncher.png" type="Texture" id=4]
 [ext_resource path="res://assets/art/fx/png/light.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -168,6 +169,34 @@ region = Rect2( 32, 0, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 4 )
+region = Rect2( 384, 0, 64, 48 )
+
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
@@ -178,6 +207,11 @@ animations = [ {
 "frames": [ SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
 "loop": false,
 "name": "weapon1",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ) ],
+"loop": true,
+"name": "weapon2",
 "speed": 10.0
 } ]
 

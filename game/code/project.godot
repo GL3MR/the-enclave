@@ -12,8 +12,11 @@ config_version=4
 
 config/name="The enclave"
 run/main_scene="res://scene/title_screen.tscn"
+boot_splash/image="res://assets/art/menu_and_ui/logo_the_enclave/gl3mr.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.172549, 0.0705882, 0.188235, 1 )
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
