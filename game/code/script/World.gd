@@ -157,6 +157,10 @@ func _on_timeline_end(timeline_name):
 	in_dialog = false
 	Events.emit_timeline_ended()
 	if timeline_name == "final":
+		Storage.in_game = false
+		Storage.in_challenge = false
+		Storage.boss_defeated = true
+		Storage.save_game_data()
 		SceneTransition.change_scene("res://scene/Credits.tscn")
 
 func _on_Dialogo_Start_body_entered(body):

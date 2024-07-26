@@ -55,9 +55,19 @@ func _ready():
 	
 	Events.connect("in_dialog", self, "_on_in_dialog")
 	Events.connect("timeline_ended", self, "on_timeline_ended")
+	Events.connect("in_tutorial", self, "on_in_tutorial")
+	Events.connect("in_interactive_zone", self, "on_in_interactive_zone")
+
+func on_in_tutorial(in_tutorial):
+	$hud/fala.visible = in_tutorial
+
+func on_in_interactive_zone(in_interactive_zone):
+	$hud/interagir.visible = in_interactive_zone
 
 func _physics_process(delta):
 	$hud/lifebar.value = life * 3
+	
+	$hud/Batery_Count.text = str(Events.batery_count).pad_zeros(2)
 	
 	var dir = get_direction()
 

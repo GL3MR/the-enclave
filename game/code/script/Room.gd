@@ -97,6 +97,7 @@ func find_positions_spawn():
 
 func _on_PlayerDetector_body_entered(body):
 	if body.name == "Player":
+		Events.emit_in_tutoriald(is_tutorial)
 		if self == self.get_parent().get_node("Room6"):
 			Storage.tutorial_complete = true
 			Storage.save_game_data()
@@ -131,10 +132,10 @@ func _on_PlayerDetector_body_exited(body):
 		playerBody = null
 	if body.is_in_group("mob"):
 		Events.emit_enemy_left(self)
-		
-		if get_name() == "Room7" and playerBody.life != 0:
-			get_parent().start_dialogue("final")
+	
 		_on_enemy_left()
+		if get_name() == "Room7" and playerBody.life != 0 and enemies_in_room == 0:
+			get_parent().start_dialogue("final")
 
 func _on_enemy_entered():
 	enemies_in_room += 1
@@ -220,8 +221,6 @@ func check_movement_tutorial_complete():
 		open_one_door($DoorLeft)
 
 func _on_tutorial_enemy_dead(position):
-	if playerBody:
-		spawn_viper_instance(position)
 	if playerBody:
 		spawn_viper_instance(position)
 
