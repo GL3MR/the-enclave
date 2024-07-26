@@ -213,6 +213,7 @@ one_shot = true
 position = Vector2( 656, -112 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
 position = Vector2( 384, -224 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]

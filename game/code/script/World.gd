@@ -36,55 +36,72 @@ var enemies_rooms = [
 	[],
 	[],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 1},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 6},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 6},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	]
 ]
 
