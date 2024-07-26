@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://script/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/prota/png/Sprite-prota-shadow.png" type="Texture" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://assets/fonts/kenney_mini_square.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://assets/art/ui/png/bateria_hud.png" type="Texture" id=10]
 [ext_resource path="res://assets/art/ui/png/button_hud.png" type="Texture" id=11]
+[ext_resource path="res://assets/audio/sfx/prota/Andando.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/sfx/prota/Esquiva (1).mp3" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/sfx/prota/Som de morte.mp3" type="AudioStream" id=14]
 [ext_resource path="res://assets/art/ui/png/weapon-menu-saber.png" type="Texture" id=17]
 [ext_resource path="res://assets/art/ui/png/lifebar-prota.png" type="Texture" id=22]
 [ext_resource path="res://assets/art/fx/png/light.png" type="Texture" id=23]
@@ -359,5 +362,16 @@ reset_on_save = false
 playback_speed = 1.5
 anims/damage = SubResource( 8 )
 anims/idle = SubResource( 9 )
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+bus = "Body"
+
+[node name="dash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 13 )
+bus = "Body"
+
+[node name="dying" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="animation_finished" from="weapon" to="." method="_on_weapon_animation_finished"]

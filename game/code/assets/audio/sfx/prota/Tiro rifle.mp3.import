@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Tiro rifle.mp3-0a3f580ea72b1fa64b39d4249e05a3ec.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

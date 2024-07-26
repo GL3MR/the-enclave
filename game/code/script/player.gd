@@ -101,6 +101,8 @@ func _physics_process(delta):
 		if true_direction != Vector2.ZERO:
 			move_and_slide(true_direction * speed)
 			anim_switch("run")
+			if !$walk.playing:
+				$walk.play()
 			$ParticlesMove.emitting = true
 		else:
 			anim_switch("idle")
@@ -198,6 +200,7 @@ func dash():
 	add_child(timer_dash)
 	timer_dash.start()
 	anim_switch("dash")
+	$dash.play()
 	if true_direction == Vector2.ZERO:
 		true_direction = direction
 	direction = true_direction 
@@ -228,7 +231,7 @@ func attack():
 		$weapon.play("attack_" + (str(id_weapon)))
 
 func hit(dmg):
-	if not invinsible:
+	if not invinsible and life != 0:
 		invinsible = true
 		life = max(0, life - dmg)
 		timer_damage = Timer.new()
@@ -241,11 +244,13 @@ func hit(dmg):
 		if life == 0:
 			dying = true
 			timer_death= Timer.new()
-			timer_death.set_wait_time(1)
+			timer_death.set_wait_time(3)
 			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
+			$weapon.visible = false
 			add_child(timer_death)
 			timer_death.start()
 			anim_switch("dead")
+			$dying.play()
 
 
 func _on_timeratt_timeout():

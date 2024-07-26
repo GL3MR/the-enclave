@@ -39,6 +39,8 @@ func init(allie_, damage_, speed_, tde_life, dimension, apparence, dir, pos, rot
 	if rot:
 		rotation_degrees = angle
 	$apparence.play("weapon" + str(apparence))
+	var weapon_node = get_node("weapon_" + str(apparence))
+	weapon_node.play()
 	$area/col.shape.extents = dimension / 2
 
 func _physics_process(delta):

@@ -92,6 +92,8 @@ Events="*res://script/events.gd"
 Enums="*res://script/Enums.gd"
 Storage="*res://script/storage.gd"
 SceneTransition="*res://scene/Scene_Transition.tscn"
+MusicManager="*res://scene/MusicManager.tscn"
+Camera2d="*res://script/Camera2D.gd"
 
 [display]
 
@@ -108,6 +110,7 @@ enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
 
 windows=false
 window=false
+bus=false
 
 [importer_defaults]
 

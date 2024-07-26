@@ -107,9 +107,9 @@ smoothing_speed = 10.0
 script = SubResource( 1 )
 
 [node name="ambiente" type="AudioStreamPlayer2D" parent="."]
+visible = false
 position = Vector2( 176, 107 )
 stream = ExtResource( 5 )
-autoplay = true
 bus = "Music"
 
 [node name="Sprite" type="Sprite" parent="ambiente"]

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Som puncher.mp3-b9f9b75d358079b004bbbbc5f79bd509.mp3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

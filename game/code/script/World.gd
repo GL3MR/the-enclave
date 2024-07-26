@@ -97,6 +97,7 @@ var room_active
 var in_dialog = false
 
 func _ready():
+	MusicManager.play("Music_Sala")
 	Events.connect("room_entered", self, "_on_room_entered")
 	
 	rooms_tutorial = [
