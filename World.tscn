@@ -21,9 +21,9 @@ func _on_room_entered(room):
 "
 
 [sub_resource type="NavigationPolygon" id=2]
-vertices = PoolVector2Array( 386.773, -6.90966, 389.229, -252.203, 785.824, -255.658, 789.508, -6.90966 )
+vertices = PoolVector2Array( 374.495, 5.18225, 376.95, -274.659, 771.09, -276.387, 773.546, 5.18225 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( 386.773, -6.90966, 389.229, -252.203, 785.824, -255.658, 789.508, -6.90966 ) ]
+outlines = [ PoolVector2Array( 374.495, 5.18225, 376.95, -274.659, 771.09, -276.387, 773.546, 5.18225 ) ]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 6 )
@@ -150,7 +150,7 @@ scale = Vector2( 1.41599, 1.30892 )
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( 98, -22 )
+position = Vector2( 110, -34 )
 scale = Vector2( 0.814431, 0.578899 )
 navpoly = SubResource( 2 )
 
