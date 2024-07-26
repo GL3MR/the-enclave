@@ -156,6 +156,8 @@ func start_dialogue(dialogue_name: String):
 func _on_timeline_end(timeline_name):
 	in_dialog = false
 	Events.emit_timeline_ended()
+	if timeline_name == "final":
+		SceneTransition.change_scene("res://scene/Credits.tscn")
 
 func _on_Dialogo_Start_body_entered(body):
 	start_dialogue("start")

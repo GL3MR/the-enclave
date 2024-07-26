@@ -9,10 +9,8 @@ func _on_continue_pressed():
 func _on_relancer_pressed():
 	global.menu()
 	Storage.load_game_data()
-	var _result = get_tree().change_scene("res://scene/World.tscn")
-	_result = null
+	SceneTransition.change_scene("res://scene/World.tscn")
 
 func _on_quitter_pressed():
 	global.menu()
-	var _result = get_tree().change_scene("res://scene/title_screen.tscn")
-	_result = null
+	SceneTransition.change_scene("res://scene/title_screen.tscn")

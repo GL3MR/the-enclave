@@ -143,7 +143,7 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("attaque") and not has_node("InGameMenu") and not atacking and !(id_weapon == 2):
 			attack()
-	else:
+	elif !dying:
 		$anim.play("idle")
 
 func _on_in_dialog():
@@ -255,7 +255,7 @@ func _on_timerdamage_timeout():
 
 func _on_timerdeath_timeout():
 	timer_death.queue_free()
-	get_tree().change_scene("res://scene/game_over.tscn")
+	SceneTransition.change_scene("res://scene/game_over.tscn")
 
 func return_position():
 	return self.position

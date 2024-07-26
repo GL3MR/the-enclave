@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme/user_interface.tres" type="Theme" id=1]
+[ext_resource path="res://script/Menu_Jogar.gd" type="Script" id=2]
+
+[node name="Menu_Jogar" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 384.0
+margin_bottom = 224.0
+color = Color( 0.109804, 0.117647, 0.12549, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+light_mask = -2147483647
+margin_left = 82.0
+margin_top = 48.0
+margin_right = 302.0
+margin_bottom = 176.0
+theme = ExtResource( 1 )
+alignment = 1
+
+[node name="continuar" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 2.0
+margin_right = 220.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 67, 14 )
+text = "Continuar Jogo"
+
+[node name="novo" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 34.0
+margin_right = 220.0
+margin_bottom = 62.0
+rect_pivot_offset = Vector2( 67, 14 )
+text = "Novo Jogo"
+
+[node name="desafio" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 66.0
+margin_right = 220.0
+margin_bottom = 94.0
+text = "Desafiar Boss"
+
+[node name="voltar" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 98.0
+margin_right = 220.0
+margin_bottom = 126.0
+text = "Voltar"
+
+[connection signal="pressed" from="VBoxContainer/continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="VBoxContainer/novo" to="." method="_on_novo_pressed"]
+[connection signal="pressed" from="VBoxContainer/desafio" to="." method="_on_desafio_pressed"]
+[connection signal="pressed" from="VBoxContainer/voltar" to="." method="_on_voltar_pressed"]

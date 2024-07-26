@@ -132,7 +132,7 @@ func _on_PlayerDetector_body_exited(body):
 	if body.is_in_group("mob"):
 		Events.emit_enemy_left(self)
 		
-		if get_name() == "Room7":
+		if get_name() == "Room7" and playerBody.life != 0:
 			get_parent().start_dialogue("final")
 		_on_enemy_left()
 
@@ -154,6 +154,9 @@ func update_doors():
 	else:
 		for door in doors:
 			if self == self.get_parent().get_node("Room6") and (door.get_name() == "DoorLeft" or door.get_name() == "DoorDown"):
+				if !door.is_close_door():
+					door.close_door()
+			elif Storage.in_challenge and self == self.get_parent().get_node("Room6") and (door.get_name() == "DoorUp"):
 				if !door.is_close_door():
 					door.close_door()
 			elif is_tutorial and !tutorial_complete:

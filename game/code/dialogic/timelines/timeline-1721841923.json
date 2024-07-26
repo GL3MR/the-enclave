@@ -35,10 +35,6 @@
 		{
 			"event_id": "dialogic_022",
 			"transition_duration": 1
-		},
-		{
-			"change_scene": "",
-			"event_id": "dialogic_041"
 		}
 	],
 	"metadata": {

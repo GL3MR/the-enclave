@@ -91,6 +91,7 @@ global="*res://script/global.gd"
 Events="*res://script/events.gd"
 Enums="*res://script/Enums.gd"
 Storage="*res://script/storage.gd"
+SceneTransition="*res://scene/Scene_Transition.tscn"
 
 [display]
 
