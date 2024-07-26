@@ -54,11 +54,11 @@ animations = [ {
 radius = 33.1361
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 6.0
-height = 6.0
+radius = 7.99998
+height = 6.00004
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 53.3385
+radius = 88.0
 
 [node name="Spirk" type="KinematicBody2D" groups=["mob"]]
 collision_layer = 4
@@ -71,6 +71,7 @@ frames = SubResource( 1 )
 animation = "dead"
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
 
 [node name="TimerDeath" type="Timer" parent="."]
 wait_time = 1.4
