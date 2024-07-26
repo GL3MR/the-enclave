@@ -1,0 +1,235 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fonts/kenney_mini_square.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scene/Credits.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "New Anim"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Game_Designer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Artista:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 6, 6.9, 11, 12 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sound_Designer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 12, 13, 17, 18 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Game Developer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 18, 19, 23, 23.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "credits"
+length = 28.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Game_Designer/Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Game_Designer/Label3:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Artista/Label:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[node name="Credits" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 384.0
+margin_bottom = 224.0
+color = Color( 0.109804, 0.117647, 0.12549, 1 )
+
+[node name="Game_Designer" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 384.0
+margin_bottom = 224.0
+
+[node name="Label" type="Label" parent="Game_Designer"]
+margin_right = 384.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Game Designer"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Game_Designer"]
+margin_top = 44.0
+margin_right = 384.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+text = "Ronan Vieira do Carmo Junior"
+align = 1
+valign = 1
+
+[node name="Artista" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 384.0
+margin_bottom = 224.0
+
+[node name="Label" type="Label" parent="Artista"]
+margin_right = 384.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Artista"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Artista"]
+margin_top = 44.0
+margin_right = 384.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+text = "Ronan Vieira do Carmo Junior"
+align = 1
+valign = 1
+
+[node name="Sound_Designer" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 384.0
+margin_bottom = 224.0
+
+[node name="Label" type="Label" parent="Sound_Designer"]
+margin_right = 384.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Sound Designer"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Sound_Designer"]
+margin_top = 44.0
+margin_right = 384.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+text = "LÚCIO SÉRGIO LUIS JUNQUEIRA"
+align = 1
+valign = 1
+
+[node name="Game Developer" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 384.0
+margin_bottom = 224.0
+
+[node name="Label" type="Label" parent="Game Developer"]
+margin_right = 384.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Game Developer"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Game Developer"]
+margin_top = 44.0
+margin_right = 384.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+text = "MILTON ALEXANDRE SOUZA DEMARCHI"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Game Developer"]
+margin_top = 68.0
+margin_right = 384.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 2 )
+text = "Ronan Vieira do Carmo Junior"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="Game Developer"]
+margin_top = 92.0
+margin_right = 384.0
+margin_bottom = 112.0
+custom_fonts/font = SubResource( 2 )
+text = "LUIS RICARDO SANTOS DE LIMA"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="Game Developer"]
+margin_top = 116.0
+margin_right = 384.0
+margin_bottom = 136.0
+custom_fonts/font = SubResource( 2 )
+text = "GABRIEL SILVA TAVEIRA"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 4 )
+anims/credits = SubResource( 3 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

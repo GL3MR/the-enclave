@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Inimigo 2 morrendo.mp3-8e7e1bf14fb3f61f95f376ca61ec2c23.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemies/spirk/Inimigo 2 morrendo.mp3"
+dest_files=[ "res://.import/Inimigo 2 morrendo.mp3-8e7e1bf14fb3f61f95f376ca61ec2c23.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

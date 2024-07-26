@@ -1,0 +1,81 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Para atacar, use o botão esquerdo do mouse."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Você pode trocar de arma apertando Tab ou clicando no botão do meio do mouse."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Você tem três armas:"
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "o Buster, que ataca à distância com baixo dano"
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "o Saber, que dá um ataque em área com dano médio"
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "e o Puncher, que é um ataque de curto alcance com alto dano"
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Para passar para a próxima sala, derrote o inimigo quebrado e troque de arma."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Se quiser ouvir essa explicação novamente, aperte a tecla F."
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.5.1",
+		"file": "timeline-1721826180.json",
+		"name": "tutorial-2"
+	}
+}

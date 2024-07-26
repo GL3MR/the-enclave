@@ -1,0 +1,63 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ah, você deve ser experiente para pular o tutorial."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Que seja."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A porta vermelha à direita é o desafio final da simulação, mas antes você precisa ligar o painel."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Procure a bateria nas salas acima. Passel pela porta azul."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Tenha cuidado, há inimigos muito poderosos lá."
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.5.1",
+		"file": "timeline-1721826638.json",
+		"name": "sala-principal-sem-tutorial"
+	}
+}

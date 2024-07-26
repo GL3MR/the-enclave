@@ -1,0 +1,255 @@
+[gd_scene load_steps=39 format=2]
+
+[ext_resource path="res://assets/art/sprites/png/Sprite-full.png" type="Texture" id=1]
+[ext_resource path="res://assets/art/enemies/viper/png/Sprite-viper-animation-attack.png" type="Texture" id=2]
+[ext_resource path="res://script/viper.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/sfx/enemies/Inimigos tomando dano.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/sfx/enemies/viper/Inimigo 1 morrendo.mp3" type="AudioStream" id=5]
+[ext_resource path="res://assets/audio/sfx/enemies/viper/Inimigo 1 atacando.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/sfx/enemies/viper/Inimigo 1 andando.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/art/enemies/viper/png/Sprite-viper-shadow.png" type="Texture" id=8]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 192, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 288, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 192, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 288, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 32, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=25]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 9 ), SubResource( 2 ), SubResource( 3 ), SubResource( 3 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "atk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "idle",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 4.5, 6 )
+
+[sub_resource type="CircleShape2D" id=27]
+radius = 35.0
+
+[sub_resource type="CapsuleShape2D" id=29]
+radius = 12.0
+height = 2.0
+
+[sub_resource type="Animation" id=30]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 1 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="viper" type="KinematicBody2D" groups=["mob"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+position = Vector2( 0, -1 )
+texture = ExtResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 25 )
+animation = "idle"
+frame = 1
+playing = true
+offset = Vector2( 0, -6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.5, -6 )
+shape = SubResource( 28 )
+
+[node name="Detection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="detection" type="CollisionShape2D" parent="Detection"]
+visible = false
+position = Vector2( 1, -7 )
+shape = SubResource( 27 )
+
+[node name="Atackarea" type="Area2D" parent="." groups=["atk"]]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="atkarea" type="CollisionShape2D" parent="Atackarea" groups=["atk"]]
+visible = false
+position = Vector2( 0, -6 )
+shape = SubResource( 29 )
+
+[node name="atkcooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="animation" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="dano" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="morrendo" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 5 )
+bus = "SFX"
+
+[node name="ataque" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 6 )
+bus = "SFX"
+
+[node name="andar" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 7 )
+bus = "Body"
+
+[node name="effect" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite")
+reset_on_save = false
+playback_speed = 1.5
+anims/damage = SubResource( 30 )
+anims/idle = SubResource( 32 )
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]
+[connection signal="body_entered" from="Atackarea" to="." method="_on_Atackarea_body_entered"]
+[connection signal="body_exited" from="Atackarea" to="." method="_on_Atackarea_body_exited"]
+[connection signal="timeout" from="atkcooldown" to="." method="_on_atkcooldown_timeout"]
+[connection signal="timeout" from="animation" to="." method="_on_animation_timeout"]
+[connection signal="animation_finished" from="effect" to="." method="_on_effect_animation_finished"]

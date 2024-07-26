@@ -1,0 +1,230 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scene/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/art/menu_and_ui/logo_the_enclave/gl3mr.png" type="Texture" id=2]
+[ext_resource path="res://scene/Room.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/Batery.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/audio/music/background/Música sala comum.mp3" type="AudioStream" id=5]
+[ext_resource path="res://script/World.gd" type="Script" id=6]
+[ext_resource path="res://scene/weapon_terrain.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scene/loot.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/Energy_Box.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scene/boss.tscn" type="PackedScene" id=10]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Camera2D
+
+func _ready() -> void:
+	# Conecta o sinal `room_entered` ao método `on_room_entered`
+	Events.connect(\"room_entered\", self, \"_on_room_entered\")
+
+# Define a função que será chamada quando o sinal `room_entered` for emitido
+func _on_room_entered(room):
+	global_position = room.global_position
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 24 )
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 32, 32, 352, 32, 352, 192, 32, 192 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 32, 32, 352, 32, 352, 192, 32, 192 ) ]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 176, 112 )
+
+[node name="Room1" parent="." instance=ExtResource( 3 )]
+
+[node name="Room2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, 0 )
+
+[node name="Room3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, 0 )
+
+[node name="Room4" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, -224 )
+
+[node name="Room5" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, -224 )
+
+[node name="Room6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -224 )
+
+[node name="Room7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, -224 )
+
+[node name="Room8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -448 )
+
+[node name="Room9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, -448 )
+
+[node name="Room10" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, -448 )
+
+[node name="Room11" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, -448 )
+
+[node name="Room12" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, -672 )
+
+[node name="Room13" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, -672 )
+
+[node name="Room14" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -672 )
+
+[node name="Room15" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, -672 )
+
+[node name="Room16" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, -896 )
+
+[node name="Room17" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -896 )
+
+[node name="Room18" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, -896 )
+
+[node name="Room19" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, -896 )
+
+[node name="Room20" parent="." instance=ExtResource( 3 )]
+position = Vector2( -768, -1120 )
+
+[node name="Room21" parent="." instance=ExtResource( 3 )]
+position = Vector2( -384, -1120 )
+
+[node name="Room22" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -1120 )
+
+[node name="Room23" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, -1120 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+script = SubResource( 1 )
+
+[node name="ambiente" type="AudioStreamPlayer2D" parent="."]
+visible = false
+position = Vector2( 176, 107 )
+stream = ExtResource( 5 )
+bus = "Music"
+
+[node name="Sprite" type="Sprite" parent="ambiente"]
+texture = ExtResource( 2 )
+
+[node name="weapon_terrain" parent="." instance=ExtResource( 7 )]
+position = Vector2( 64, 110 )
+id = 1
+
+[node name="Batery" parent="." instance=ExtResource( 4 )]
+position = Vector2( -192, -144 )
+
+[node name="loot" parent="." instance=ExtResource( 8 )]
+position = Vector2( 176, 64 )
+
+[node name="Energy_Box" parent="." instance=ExtResource( 9 )]
+position = Vector2( 368, -160 )
+rotation = 1.5708
+
+[node name="Energy_Box2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -16, -160 )
+rotation = 1.5708
+
+[node name="AreaTutorial3" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaTutorial3"]
+position = Vector2( -768, -224 )
+polygon = PoolVector2Array( 144, 192, 128, 192, 128, 112, 256, 112, 256, 192, 240, 192, 240, 128, 144, 128 )
+
+[node name="ZonasDialogos" type="Node2D" parent="."]
+
+[node name="Dialogo_Start" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Start"]
+position = Vector2( 192, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_1" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_1"]
+position = Vector2( -56, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_2" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_2"]
+position = Vector2( -440, 112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_3" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_3"]
+position = Vector2( -576, -56 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_Tutorial_4" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_Tutorial_4"]
+position = Vector2( -328, -112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_sala_princial_tutorial" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_sala_princial_tutorial"]
+position = Vector2( 56, -112 )
+shape = SubResource( 2 )
+
+[node name="Dialogo_sala_princial_sem_tutorial" type="Area2D" parent="ZonasDialogos"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonasDialogos/Dialogo_sala_princial_sem_tutorial"]
+position = Vector2( 192, -56 )
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="boss" parent="." instance=ExtResource( 10 )]
+position = Vector2( 656, -112 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
+position = Vector2( 384, -224 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 3 )
+
+[connection signal="body_entered" from="AreaTutorial3" to="." method="_on_AreaTutorial3_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Start" to="." method="_on_Dialogo_Start_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_1" to="." method="_on_Dialogo_Tutorial_1_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_2" to="." method="_on_Dialogo_Tutorial_2_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_3" to="." method="_on_Dialogo_Tutorial_3_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_Tutorial_4" to="." method="_on_Dialogo_Tutorial_4_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_sala_princial_tutorial" to="." method="_on_Dialogo_sala_princial_tutorial_body_entered"]
+[connection signal="body_entered" from="ZonasDialogos/Dialogo_sala_princial_sem_tutorial" to="." method="_on_Dialogo_sala_princial_sem_tutorial_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

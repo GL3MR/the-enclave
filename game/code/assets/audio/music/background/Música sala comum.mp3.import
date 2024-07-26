@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Música sala comum.mp3-f3490a7a7cb8d6735456384543e334e0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/background/Música sala comum.mp3"
+dest_files=[ "res://.import/Música sala comum.mp3-f3490a7a7cb8d6735456384543e334e0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

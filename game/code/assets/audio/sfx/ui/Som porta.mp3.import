@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Som porta.mp3-66ba1b786f73580aa1a27db140c1594e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/ui/Som porta.mp3"
+dest_files=[ "res://.import/Som porta.mp3-66ba1b786f73580aa1a27db140c1594e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

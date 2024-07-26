@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fonts/kenney_mini_square.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://script/titlescreen.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "open"
+
+[sub_resource type="Animation" id=2]
+resource_name = "clignote"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "rotate"
+length = 4.0
+loop = true
+
+[node name="titlescreen" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 384.0
+margin_bottom = 224.0
+color = Color( 0.109804, 0.117647, 0.12549, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_top = 128.0
+margin_right = 384.0
+margin_bottom = 216.0
+custom_fonts/font = SubResource( 4 )
+text = "Pressione uma tecla qualquer
+Pressione Esc para sair"
+align = 1
+valign = 1
+
+[node name="animtitle" type="AnimationPlayer" parent="."]
+autoplay = "open"
+anims/open = SubResource( 1 )
+
+[node name="animtouch" type="AnimationPlayer" parent="."]
+autoplay = "clignote"
+anims/clignote = SubResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="animsky" type="AnimationPlayer" parent="."]
+autoplay = "rotate"
+playback_speed = 0.1
+anims/rotate = SubResource( 3 )

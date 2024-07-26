@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/fonts/kenney_mini_square.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://script/game_over.gd" type="Script" id=4]
+[ext_resource path="res://assets/art/ui/png/gameover.png" type="Texture" id=6]
+[ext_resource path="res://theme/user_interface.tres" type="Theme" id=7]
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/path = NodePath("texte:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -9, -98 ), Vector2( -9, 6 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, -80 ), Vector2( 8, 0 ) ]
+}
+
+[node name="gameover" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+script = ExtResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 384.0
+margin_bottom = 224.0
+color = Color( 0.109804, 0.117647, 0.12549, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 8.0
+margin_right = 376.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "Fim de Jogo"
+
+[node name="texte" type="TextureRect" parent="."]
+visible = false
+margin_left = -9.0
+margin_top = -98.0
+margin_right = 391.0
+margin_bottom = 2.0
+texture = ExtResource( 6 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "open"
+anims/open = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+light_mask = -2147483647
+margin_left = 82.0
+margin_top = 100.0
+margin_right = 302.0
+margin_bottom = 192.0
+theme = ExtResource( 7 )
+alignment = 1
+
+[node name="continue" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 16.0
+margin_right = 220.0
+margin_bottom = 44.0
+text = "Reiniciar partida"
+
+[node name="menu" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 48.0
+margin_right = 220.0
+margin_bottom = 76.0
+text = "Voltar ao menu principal"
+
+[node name="anim2" type="AnimationPlayer" parent="."]
+autoplay = "open"
+anims/open = SubResource( 4 )
+
+[connection signal="pressed" from="VBoxContainer/continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/menu" to="." method="_on_leave_pressed"]

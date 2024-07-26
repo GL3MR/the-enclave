@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/art/itens/png/item-cura.png" type="Texture" id=1]
+[ext_resource path="res://script/loot.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/sfx/ui/Gastando sucata.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/art/itens/png/item_cura-shadow.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "cura",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.5, 6 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "fly"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("apparence:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -4 ) ]
+}
+
+[node name="loot" type="Area2D"]
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="shadow" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+position = Vector2( -1, 6 )
+texture = ExtResource( 4 )
+
+[node name="apparence" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -3.24113 )
+z_index = 1
+frames = SubResource( 3 )
+animation = "cura"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.5, 3 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fly"
+playback_speed = 0.5
+anims/fly = SubResource( 2 )
+
+[node name="energy" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_loot_body_entered"]
+[connection signal="finished" from="energy" to="." method="_on_energy_finished"]
