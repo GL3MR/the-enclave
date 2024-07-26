@@ -264,7 +264,6 @@ scale = Vector2( 7.49162, 0.672613 )
 
 [node name="WallLeft" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
 position = Vector2( -3.20358, 2.97783 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 17 )
 
 [node name="WallRight" type="CollisionShape2D" parent="DoorPlayerDetector/wall"]
@@ -282,7 +281,7 @@ shape = SubResource( 19 )
 
 [node name="porta" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-bus = "SFX"
+bus = "Misc"
 
 [node name="portal" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )

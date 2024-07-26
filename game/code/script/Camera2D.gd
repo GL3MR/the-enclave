@@ -5,3 +5,6 @@ func _ready() -> void:
 
 func _on_room_entered(room):
 	global_position = room.global_position
+
+func oi():
+	print("oi")

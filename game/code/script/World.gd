@@ -36,55 +36,72 @@ var enemies_rooms = [
 	[],
 	[],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 1},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 6},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 6},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 0},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	]
 ]
 
@@ -97,6 +114,7 @@ var room_active
 var in_dialog = false
 
 func _ready():
+	MusicManager.play("Music_Sala")
 	Events.connect("room_entered", self, "_on_room_entered")
 	
 	rooms_tutorial = [
@@ -156,6 +174,12 @@ func start_dialogue(dialogue_name: String):
 func _on_timeline_end(timeline_name):
 	in_dialog = false
 	Events.emit_timeline_ended()
+	if timeline_name == "final":
+		Storage.in_game = false
+		Storage.in_challenge = false
+		Storage.boss_defeated = true
+		Storage.save_game_data()
+		SceneTransition.change_scene("res://scene/Credits.tscn")
 
 func _on_Dialogo_Start_body_entered(body):
 	start_dialogue("start")

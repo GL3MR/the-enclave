@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Som Espada.mp3-703761fc88d7f726e651d595d3eaa019.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

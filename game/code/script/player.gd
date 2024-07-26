@@ -55,9 +55,19 @@ func _ready():
 	
 	Events.connect("in_dialog", self, "_on_in_dialog")
 	Events.connect("timeline_ended", self, "on_timeline_ended")
+	Events.connect("in_tutorial", self, "on_in_tutorial")
+	Events.connect("in_interactive_zone", self, "on_in_interactive_zone")
+
+func on_in_tutorial(in_tutorial):
+	$hud/fala.visible = in_tutorial
+
+func on_in_interactive_zone(in_interactive_zone):
+	$hud/interagir.visible = in_interactive_zone
 
 func _physics_process(delta):
 	$hud/lifebar.value = life * 3
+	
+	$hud/Batery_Count.text = str(Events.batery_count).pad_zeros(2)
 	
 	var dir = get_direction()
 
@@ -91,6 +101,8 @@ func _physics_process(delta):
 		if true_direction != Vector2.ZERO:
 			move_and_slide(true_direction * speed)
 			anim_switch("run")
+			if !$walk.playing:
+				$walk.play()
 			$ParticlesMove.emitting = true
 		else:
 			anim_switch("idle")
@@ -143,7 +155,7 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("attaque") and not has_node("InGameMenu") and not atacking and !(id_weapon == 2):
 			attack()
-	else:
+	elif !dying:
 		$anim.play("idle")
 
 func _on_in_dialog():
@@ -188,6 +200,7 @@ func dash():
 	add_child(timer_dash)
 	timer_dash.start()
 	anim_switch("dash")
+	$dash.play()
 	if true_direction == Vector2.ZERO:
 		true_direction = direction
 	direction = true_direction 
@@ -218,7 +231,7 @@ func attack():
 		$weapon.play("attack_" + (str(id_weapon)))
 
 func hit(dmg):
-	if not invinsible:
+	if not invinsible and life != 0:
 		invinsible = true
 		life = max(0, life - dmg)
 		timer_damage = Timer.new()
@@ -231,11 +244,13 @@ func hit(dmg):
 		if life == 0:
 			dying = true
 			timer_death= Timer.new()
-			timer_death.set_wait_time(1)
+			timer_death.set_wait_time(3)
 			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
+			$weapon.visible = false
 			add_child(timer_death)
 			timer_death.start()
 			anim_switch("dead")
+			$dying.play()
 
 
 func _on_timeratt_timeout():
@@ -255,7 +270,7 @@ func _on_timerdamage_timeout():
 
 func _on_timerdeath_timeout():
 	timer_death.queue_free()
-	get_tree().change_scene("res://scene/game_over.tscn")
+	SceneTransition.change_scene("res://scene/game_over.tscn")
 
 func return_position():
 	return self.position

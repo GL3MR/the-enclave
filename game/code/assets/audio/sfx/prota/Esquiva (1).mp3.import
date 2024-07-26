@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Esquiva (1).mp3-dba5bf4f757d1c0cb8b19e9f18f793f4.mp3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

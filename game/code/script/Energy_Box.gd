@@ -40,9 +40,11 @@ func _on_Energy_Box_body_entered(body):
 				Events.emit_interacted(door)
 				
 	if body.is_in_group("hero"):
+		Events.emit_in_interactive_zone(true)
 		player_in_range = true
 
 
 func _on_Energy_Box_body_exited(body):
 	if body.is_in_group("hero"):
+		Events.emit_in_interactive_zone(false)
 		player_in_range = false
