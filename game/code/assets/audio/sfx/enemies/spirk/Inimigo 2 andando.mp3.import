@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Inimigo 2 andando.mp3-4f8fd51aa615f84a0cac8676355a23
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

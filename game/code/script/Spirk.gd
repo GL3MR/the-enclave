@@ -12,6 +12,8 @@ var fleeing = false
 var speed
 var player_distance
 
+var loot = preload("res://scene/loot.tscn")
+
 func _ready():
 	speed = 170
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
@@ -75,15 +77,18 @@ func die():
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "dead"
 	$SpirkAnimation.play()
+	$morrendo.play()
 #	$TimerDeath.start()
 	yield($SpirkAnimation, "animation_finished")
-	queue_free()
+	drop()
 
 
 func damage(amount):
 	life = max(0, life - amount)
 	if life <= 0:
 		die()
+	else:
+		$dano.play()
 
 
 ######################## TIMERS ##########################
@@ -112,6 +117,8 @@ func _on_NearArea_body_entered(body):
 	if life != 0:
 		$SpirkAnimation.stop()
 		$SpirkAnimation.animation = "walk"
+		if !$andar.playing:
+			$andar.play()
 		$SpirkAnimation.play()
 		if body == player:
 			fleeing = true
@@ -122,6 +129,15 @@ func _on_NearArea_body_entered(body):
 func _on_FarArea_body_exited(body):
 	if body == player:
 		fleeing = false
-		if not can_shoot: 
+		if not can_shoot and life != 0: 
 			can_shoot = true
 			attack()
+			
+func drop():
+	var nb
+	nb = randi()%100
+	if nb < 10:
+		var newloot = loot.instance()
+		get_parent().add_child(newloot)
+		newloot.position = position
+	queue_free() 
