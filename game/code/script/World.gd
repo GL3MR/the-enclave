@@ -113,9 +113,12 @@ onready var player: Node2D = $Player
 var room_active
 var in_dialog = false
 
+
 func _ready():
 	MusicManager.play("Music_Sala")
 	Events.connect("room_entered", self, "_on_room_entered")
+	
+	global.change_cursor(0)
 	
 	rooms_tutorial = [
 		$Room2,

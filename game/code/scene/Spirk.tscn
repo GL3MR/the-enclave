@@ -109,7 +109,7 @@ texture = ExtResource( 31 )
 
 [node name="SpirkAnimation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "dead"
+animation = "idle"
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false

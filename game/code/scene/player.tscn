@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://script/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/prota/png/Sprite-prota-shadow.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/audio/sfx/prota/Andando.mp3" type="AudioStream" id=12]
 [ext_resource path="res://assets/audio/sfx/prota/Esquiva (1).mp3" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/sfx/prota/Som de morte.mp3" type="AudioStream" id=14]
+[ext_resource path="res://assets/art/ui/png/weapon-box.png" type="Texture" id=15]
 [ext_resource path="res://assets/art/ui/png/weapon-menu-saber.png" type="Texture" id=17]
 [ext_resource path="res://assets/art/ui/png/lifebar-prota.png" type="Texture" id=22]
 [ext_resource path="res://assets/art/fx/png/light.png" type="Texture" id=23]
@@ -249,8 +250,16 @@ shape = SubResource( 7 )
 
 [node name="hud" type="CanvasLayer" parent="."]
 
+[node name="TextureRect" type="TextureRect" parent="hud"]
+margin_left = 304.0
+margin_top = 2.0
+margin_right = 336.0
+margin_bottom = 42.0
+texture = ExtResource( 15 )
+
 [node name="weapon_switch" type="TextureRect" parent="hud"]
 margin_left = 300.0
+margin_top = -4.0
 margin_right = 340.0
 margin_bottom = 40.0
 texture = ExtResource( 17 )

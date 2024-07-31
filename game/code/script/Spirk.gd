@@ -6,11 +6,14 @@ var damage = 3
 var projectile_cooldown = 1
 var player = null
 var localization: Node2D
-var can_shoot = true
+var can_shoot = false
 var player_side = 1
 var fleeing = false
 var speed
 var player_distance
+
+var min_time_cooldown = 3.5
+var max_time_cooldown = 4.5
 
 var loot = preload("res://scene/loot.tscn")
 
@@ -18,6 +21,9 @@ func _ready():
 	speed = 170
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
 	Events.connect("enemy_room_entered", self, "_on_enemy_room_entered")
+	$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
+	$TimerCooldown.start()
+	fleeing = false
 	idle()
 
 func _physics_process(delta):
@@ -107,6 +113,7 @@ func _on_TimerAttack_timeout():
 		var angle = direction_vector.angle()
 		ball.linear_velocity = Vector2(400,0).rotated(angle)
 		add_child(ball)
+		$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
 		$TimerCooldown.start()
 		idle()
 
@@ -116,15 +123,14 @@ func _on_TimerCooldown_timeout():
 
 
 func _on_NearArea_body_entered(body):
-	if life != 0:
+	if player and body == player and life != 0:
 		$SpirkAnimation.stop()
 		$SpirkAnimation.animation = "walk"
 		if !$andar.playing:
 			$andar.play()
 		$SpirkAnimation.play()
-		if body == player:
-			fleeing = true
-			$SpirkAnimation.flip_h = not $SpirkAnimation.flip_h
+		fleeing = true
+		$SpirkAnimation.flip_h = not $SpirkAnimation.flip_h
 
 
 func _on_FarArea_body_exited(body):
@@ -137,6 +143,7 @@ func _on_FarArea_body_exited(body):
 func drop():
 	var nb
 	nb = randi()%100
+	print(nb)
 	if nb < 10:
 		var newloot = loot.instance()
 		get_parent().add_child(newloot)

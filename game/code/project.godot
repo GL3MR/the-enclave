@@ -99,6 +99,7 @@ Camera2d="*res://script/Camera2D.gd"
 
 window/size/width=384
 window/size/height=224
+mouse_cursor/custom_image="res://assets/art/ui/png/pointer.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

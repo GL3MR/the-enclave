@@ -189,7 +189,10 @@ func switch():
 	$weapon.play(str(id_weapon))
 
 func apparence_hud():
-	$hud/weapon_switch.set_texture(load(path_weapon[id_weapon]))
+	if life > 0:
+		$hud/weapon_switch.set_texture(load(path_weapon[id_weapon]))
+		global.change_cursor(id_weapon)
+	
 
 func dash():
 	Events.emit_tutorial_player_dashed()
@@ -225,6 +228,7 @@ func attack():
 	timer_att.connect("timeout", self, "_on_timeratt_timeout")
 	add_child(timer_att)
 	timer_att.start()
+	global.change_cursor(3)
 	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip)
 	get_parent().add_child(inst_proj)
 	inst_proj.raise()
@@ -252,14 +256,17 @@ func hit(dmg):
 			add_child(timer_death)
 			timer_death.start()
 			anim_switch("dead")
+			global.change_cursor(4)
 			$weapon.visible = false
 			$dying.play()
 
 
 func _on_timeratt_timeout():
-	timer_att.queue_free()
-	atacking = false
-	$weapon.visible = true
+	if life > 0:
+		global.change_cursor(id_weapon)
+		timer_att.queue_free()
+		atacking = false
+		$weapon.visible = true
 
 func _on_timerdash_timeout():
 	creat_dash_effect()
@@ -268,9 +275,10 @@ func _on_timerdash_timeout():
 	invinsible = false
 
 func _on_timerdamage_timeout():
-	invinsible = false
-	timer_damage.queue_free()
-	$effect.play("idle")
+	if life > 0:
+		invinsible = false
+		timer_damage.queue_free()
+		$effect.play("idle")
 
 func _on_timerdeath_timeout():
 	timer_death.queue_free()
@@ -285,8 +293,9 @@ func anim_switch(animation):
 		animation_player.play(new_anim)
 
 func get_direction() -> Vector2:
-	return global_position.direction_to(get_global_mouse_position())
-	
+	var mouse_position = get_global_mouse_position() + Vector2(0, -8)
+	var direction = (mouse_position - global_position).normalized()
+	return direction
 
 func creat_dash_effect():
 	var player_copy_node = $sprite.duplicate()
