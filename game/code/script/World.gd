@@ -218,7 +218,6 @@ func _on_Timer_timeout():
 func _input(event):
 	if event is InputEventKey:
 		if event.scancode == KEY_F and event.is_pressed() and !in_dialog:
-			print(!in_dialog)
 			if room_active.get_name() == "Room2":
 				start_dialogue("tutorial-1")
 			if room_active.get_name() == "Room3":

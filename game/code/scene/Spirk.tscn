@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://script/Spirk.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/enemies/spirk/png/attack-ball/Sprite-spirk-animation-attack-ball-09.png" type="Texture" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://assets/audio/sfx/enemies/spirk/Inimigo 2 andando.mp3" type="AudioStream" id=28]
 [ext_resource path="res://assets/audio/sfx/enemies/Inimigos tomando dano.mp3" type="AudioStream" id=29]
 [ext_resource path="res://assets/audio/sfx/enemies/spirk/Inimigo 2 atacando.mp3" type="AudioStream" id=30]
+[ext_resource path="res://assets/art/enemies/spirk/png/Sprite-spirk-shadow.png" type="Texture" id=31]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -64,11 +65,46 @@ height = 6.00004
 [sub_resource type="CircleShape2D" id=4]
 radius = 88.0
 
+[sub_resource type="Animation" id=5]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Spirk" type="KinematicBody2D" groups=["mob"]]
-collision_layer = 4
-collision_mask = 5
+collision_layer = 8
+collision_mask = 9
 script = ExtResource( 1 )
 projectile_scene = ExtResource( 26 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+position = Vector2( -1, 4 )
+texture = ExtResource( 31 )
 
 [node name="SpirkAnimation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -89,20 +125,25 @@ wait_time = 4.0
 one_shot = true
 
 [node name="NearArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0, 1 )
 rotation = 1.5708
 
 [node name="TooClose" type="CollisionShape2D" parent="NearArea"]
+visible = false
 shape = SubResource( 3 )
 
 [node name="SpirkHitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 1 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="FarArea" type="Area2D" parent="."]
+visible = false
 
 [node name="FarEnough" type="CollisionShape2D" parent="FarArea"]
+visible = false
 shape = SubResource( 4 )
 
 [node name="dano" type="AudioStreamPlayer2D" parent="."]
@@ -125,9 +166,17 @@ visible = false
 stream = ExtResource( 28 )
 bus = "SFX"
 
+[node name="effect" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SpirkAnimation")
+reset_on_save = false
+playback_speed = 1.5
+anims/damage = SubResource( 5 )
+anims/idle = SubResource( 6 )
+
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="TimerDeath" to="." method="_on_TimerDeath_timeout"]
 [connection signal="timeout" from="TimerAttack" to="." method="_on_TimerAttack_timeout"]
 [connection signal="timeout" from="TimerCooldown" to="." method="_on_TimerCooldown_timeout"]
 [connection signal="body_entered" from="NearArea" to="." method="_on_NearArea_body_entered"]
 [connection signal="body_exited" from="FarArea" to="." method="_on_FarArea_body_exited"]
+[connection signal="animation_finished" from="effect" to="." method="_on_effect_animation_finished"]

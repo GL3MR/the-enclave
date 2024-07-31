@@ -50,15 +50,18 @@ func is_in_room(room):
 
 # Setup 
 func idle():
+	$andar.stop()
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "idle"
 	$SpirkAnimation.play()
 
 # Gerar e disparar projetil
 func attack():
+	$ataque.play()
 	can_shoot = false
 	$SpirkAnimation.stop()
 	$SpirkAnimation.animation = "attack"
+	
 	$SpirkAnimation.play()
 	if $TimerAttack.is_stopped():
 		$TimerAttack.start()
@@ -67,9 +70,6 @@ func attack():
 # Quando o player chegar perto, ele deve fugir
 func walk(delta):
 	var direction = self.position - player.position
-	print("self: ", self.position)
-	print("player: ", player.position)
-	print("direction ", direction)
 	move_and_slide(direction.normalized() * speed)
 	
 # Animação de morte e deleção do objeto
@@ -88,6 +88,7 @@ func damage(amount):
 	if life <= 0:
 		die()
 	else:
+		$effect.play("damage")
 		$dano.play()
 
 
@@ -123,7 +124,6 @@ func _on_NearArea_body_entered(body):
 		if body == player:
 			fleeing = true
 			$SpirkAnimation.flip_h = not $SpirkAnimation.flip_h
-			print("perto demais")
 
 
 func _on_FarArea_body_exited(body):
@@ -141,3 +141,7 @@ func drop():
 		get_parent().add_child(newloot)
 		newloot.position = position
 	queue_free() 
+
+
+func _on_effect_animation_finished(anim_name):
+	$effect.play("idle")

@@ -37,7 +37,6 @@ func _process(delta):
 	shake_strength = lerp(shake_strength, 0, SHAKE_DECAY_RATE * delta)
 
 	offset = get_noise_offset(delta)
-	print(offset)
 
 func get_noise_offset(delta: float) -> Vector2:
 	noise_i += delta * NOISE_SHAKE_SPEED

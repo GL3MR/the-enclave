@@ -25,7 +25,6 @@ func _input(event):
 			menu()
 
 func menu():
-	print(get_tree().current_scene.name == "World")
 	if get_tree().current_scene.name == "World" and !in_dialog:
 		if get_tree().paused:
 			close_pause_menu()

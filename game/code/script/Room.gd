@@ -212,7 +212,6 @@ func _on_tutorial_player_moved():
 
 func _on_tutorial_player_dashed():
 	if playerBody:
-		print(has_dashed)
 		has_dashed = true
 		check_movement_tutorial_complete()
 
