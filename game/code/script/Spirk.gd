@@ -100,14 +100,15 @@ func _on_TimerDeath_timeout():
 
 # Cria e dispara um projétil e ativa um tempo de cooldown
 func _on_TimerAttack_timeout():
-	var direction_vector = player.position - position
-	direction_vector.y += 8 # corrige trajetoria da bola pra mirar no meio do sprite
-	var ball = projectile_scene.instance()
-	var angle = direction_vector.angle()
-	ball.linear_velocity = Vector2(400,0).rotated(angle)
-	add_child(ball)
-	$TimerCooldown.start()
-	idle()
+	if life > 0 and $SpirkAnimation.animation == "attack":
+		var direction_vector = player.position - position
+		direction_vector.y += 8 # corrige trajetoria da bola pra mirar no meio do sprite
+		var ball = projectile_scene.instance()
+		var angle = direction_vector.angle()
+		ball.linear_velocity = Vector2(400,0).rotated(angle)
+		add_child(ball)
+		$TimerCooldown.start()
+		idle()
 
 # Quando acabar o spirk pode atacar novamente
 func _on_TimerCooldown_timeout():

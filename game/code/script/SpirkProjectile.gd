@@ -41,6 +41,6 @@ func _on_Area2D_body_entered(body):
 		queue_free()
 	if body is TileMap:
 		queue_free()
-	if body == player:
+	if body == player and !body.invinsible:
 		player.hit(5)
 		queue_free()

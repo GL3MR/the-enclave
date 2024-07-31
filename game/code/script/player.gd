@@ -9,7 +9,7 @@ var life: int
 var max_life = 25
 var timer = null 
 var speed = 100  
-var dash_speed = 160 
+var dash_speed = 200 
 var invinsible = false 
 
 var flip = true
@@ -194,6 +194,7 @@ func apparence_hud():
 func dash():
 	Events.emit_tutorial_player_dashed()
 	dashing = true
+	invinsible = true
 	timer_dash = Timer.new()
 	timer_dash.set_wait_time(0.2)
 	timer_dash.connect("timeout", self, "_on_timerdash_timeout")
@@ -218,7 +219,7 @@ func attack():
 		$weapon.visible = false
 	timer_att = Timer.new()
 	if id_weapon == 1:
-		timer_att.set_wait_time(0.2)
+		timer_att.set_wait_time(0.4)
 	else:
 		timer_att.set_wait_time(stat.lifespan_)
 	timer_att.connect("timeout", self, "_on_timeratt_timeout")
@@ -236,21 +237,22 @@ func hit(dmg):
 		invinsible = true
 		life = max(0, life - dmg)
 		timer_damage = Timer.new()
-		timer_damage.set_wait_time(.5)
+		timer_damage.set_wait_time(1)
 		timer_damage.connect("timeout", self, "_on_timerdamage_timeout")
 		add_child(timer_damage)
 		timer_damage.start()
-		$effect.play("damage")
+		if life != 0:
+			$effect.play("damage")
 		$hud/lifebar.value = life * 3
 		if life == 0:
 			dying = true
 			timer_death= Timer.new()
 			timer_death.set_wait_time(3)
 			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
-			$weapon.visible = false
 			add_child(timer_death)
 			timer_death.start()
 			anim_switch("dead")
+			$weapon.visible = false
 			$dying.play()
 
 
@@ -263,6 +265,7 @@ func _on_timerdash_timeout():
 	creat_dash_effect()
 	timer_dash.queue_free()
 	dashing = false
+	invinsible = false
 
 func _on_timerdamage_timeout():
 	invinsible = false

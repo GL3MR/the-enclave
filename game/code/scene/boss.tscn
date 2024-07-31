@@ -400,6 +400,7 @@ script = ExtResource( 1 )
 position = Vector2( 0, -40 )
 frames = SubResource( 9 )
 animation = "Idle"
+frame = 3
 playing = true
 offset = Vector2( 4, 41 )
 

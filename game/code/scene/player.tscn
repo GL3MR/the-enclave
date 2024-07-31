@@ -56,6 +56,11 @@ animations = [ {
 "name": "2",
 "speed": 10.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 15 ) ],
 "loop": false,
 "name": "attack_0",
@@ -178,10 +183,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -235,7 +240,7 @@ frame = 65
 position = Vector2( 0, 8 )
 z_index = -1
 frames = SubResource( 12 )
-animation = "attack_1"
+animation = "attack_0"
 offset = Vector2( 0, -12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
