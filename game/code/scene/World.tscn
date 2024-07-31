@@ -14,13 +14,41 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Camera2D
 
-func _ready() -> void:
-	# Conecta o sinal `room_entered` ao método `on_room_entered`
-	Events.connect(\"room_entered\", self, \"_on_room_entered\")
+export var NOISE_SHAKE_SPEED: float = 20.0
+export var NOISE_SHAKE_STRENGTH: float = 10.0
+export var SHAKE_DECAY_RATE: float = 5.0
+onready var rand = RandomNumberGenerator.new()
+onready var noise = OpenSimplexNoise.new()
+var noise_i: float = 0.0
+var shake_strength: float = 0.0
 
-# Define a função que será chamada quando o sinal `room_entered` for emitido
+func _ready() -> void:
+	rand.randomize()
+	noise.seed = rand.randi()
+	noise.period = 2
+	
+	Events.connect(\"room_entered\", self, \"_on_room_entered\")
+	Events.connect(\"hit_player\", self, \"_on_hit_player\")
+
 func _on_room_entered(room):
 	global_position = room.global_position
+
+func _process(delta):
+	shake_strength = lerp(shake_strength, 0, SHAKE_DECAY_RATE * delta)
+
+	offset = get_noise_offset(delta)
+	print(offset)
+
+func get_noise_offset(delta: float) -> Vector2:
+	noise_i += delta * NOISE_SHAKE_SPEED
+	
+	return Vector2(
+		noise.get_noise_2d(1, noise_i) * shake_strength,
+		noise.get_noise_2d(100, noise_i) * shake_strength
+	)
+
+func _on_hit_player():
+	shake_strength = NOISE_SHAKE_STRENGTH
 "
 
 [sub_resource type="RectangleShape2D" id=2]

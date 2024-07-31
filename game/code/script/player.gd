@@ -232,6 +232,7 @@ func attack():
 
 func hit(dmg):
 	if not invinsible and life != 0:
+		Events.emit_hit_player()
 		invinsible = true
 		life = max(0, life - dmg)
 		timer_damage = Timer.new()
