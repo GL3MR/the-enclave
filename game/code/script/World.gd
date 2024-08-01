@@ -113,9 +113,12 @@ onready var player: Node2D = $Player
 var room_active
 var in_dialog = false
 
+
 func _ready():
 	MusicManager.play("Music_Sala")
 	Events.connect("room_entered", self, "_on_room_entered")
+	
+	global.change_cursor(0)
 	
 	rooms_tutorial = [
 		$Room2,
@@ -218,7 +221,6 @@ func _on_Timer_timeout():
 func _input(event):
 	if event is InputEventKey:
 		if event.scancode == KEY_F and event.is_pressed() and !in_dialog:
-			print(!in_dialog)
 			if room_active.get_name() == "Room2":
 				start_dialogue("tutorial-1")
 			if room_active.get_name() == "Room3":

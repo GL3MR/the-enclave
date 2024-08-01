@@ -65,7 +65,6 @@ func update_path():
 
 func move_along_path(delta):
 	var distance_to_player = global_position.distance_to(player.global_position)
-	print(distance_to_player)
 	if distance_to_player > stop_distance:
 		if current_path_index < path.size():
 			var target_position = path[current_path_index]

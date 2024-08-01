@@ -20,6 +20,7 @@ signal in_dialog()
 signal timeline_ended()
 signal in_tutorial(in_tutorial)
 signal in_interactive_zone(in_interactive_zone)
+signal hit_player()
 
 func emit_room_entered(room):
 	emit_signal("room_entered", room)
@@ -80,3 +81,6 @@ func emit_in_tutoriald(in_tutorial):
 
 func emit_in_interactive_zone(in_interactive_zone):
 	emit_signal("in_interactive_zone", in_interactive_zone)
+
+func emit_hit_player():
+	emit_signal("hit_player")

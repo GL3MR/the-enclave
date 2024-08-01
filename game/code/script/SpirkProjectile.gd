@@ -37,10 +37,10 @@ func _on_TimeToLive_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	print("body ", body)
-	print("player ", player)
-	if body == player:
-		print("hit")
+	if body is StaticBody2D:
+		queue_free()
+	if body is TileMap:
+		queue_free()
+	if body == player and !body.invinsible:
 		player.hit(5)
-	if body != parent:
 		queue_free()

@@ -28,6 +28,8 @@ var has_weapon_wheel_opened = false
 
 var batery_catch = false
 
+var set = 0
+
 func _ready():
 	batery_catch = false
 	
@@ -188,13 +190,15 @@ func spawn_enemies():
 	set_enemies_in_room()
 
 func set_enemies_in_room():
+	set = 0
 	for enemy_data in enemies_data:
 		var enemy_scene = enemy_data["enemy"]
 		var quantity = enemy_data["qtd"]
 		
 		for i in range(quantity):
 			var enemy_instance = enemy_scene.instance()
-			var spawn_position = positions_spawn[i]
+			var spawn_position = positions_spawn[set]
+			set += 1
 			enemy_instance.position = spawn_position
 			get_parent().call_deferred("add_child", enemy_instance)
 
@@ -212,7 +216,6 @@ func _on_tutorial_player_moved():
 
 func _on_tutorial_player_dashed():
 	if playerBody:
-		print(has_dashed)
 		has_dashed = true
 		check_movement_tutorial_complete()
 

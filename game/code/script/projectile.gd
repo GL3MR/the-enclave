@@ -54,16 +54,28 @@ func destroy():
 
 func _on_area_body_entered(body):
 	if body is StaticBody2D:
-		speed_ = 0 
+		if id == 1:
+			weapon_1_blust()
 	if body is TileMap:
-		speed_ = 0
-	if body.is_in_group("boss") and allie_:
+		if id == 1:
+			weapon_1_blust()
+	if body.is_in_group("boss") and allie_ and body.life > 0:
 		body.life -= 1 
+		if id == 1:
+			weapon_1_blust()
 	if body.is_in_group("switch") and (id == 0 or id == 1 or id == 5):
 		body.open() 
 	if body.is_in_group("lampe") and (id == 2):
 		body.lightUp() 
-	if body.is_in_group("mob") and allie_:
+	if body.is_in_group("mob") and allie_ and body.life > 0:
 		body.damage(damage_) 
+		if id == 1:
+			weapon_1_blust()
 	if body.is_in_group("hero") and not allie_:
 		body.hit(damage_) 
+
+func weapon_1_blust():
+	speed_ = 0 
+	$apparence.play("weapon1-blust")
+	yield($apparence, "animation_finished")
+	queue_free()

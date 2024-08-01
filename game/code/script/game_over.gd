@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	pass
+	global.change_cursor(4)
 
 func _on_continue_pressed():
 	Storage.load_game_data()

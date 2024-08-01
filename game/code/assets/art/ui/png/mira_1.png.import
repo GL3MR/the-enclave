@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sprite-prota-dodge_back.png-bf4de2cdba08ba13bae4c4b07dbbe76b.stex"
+path="res://.import/mira_1.png-a8b948776f517a816f3692271f80482e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/prota/png/Sprite-prota-dodge_back.png"
-dest_files=[ "res://.import/Sprite-prota-dodge_back.png-bf4de2cdba08ba13bae4c4b07dbbe76b.stex" ]
+source_file="res://assets/art/ui/png/mira_1.png"
+dest_files=[ "res://.import/mira_1.png-a8b948776f517a816f3692271f80482e.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

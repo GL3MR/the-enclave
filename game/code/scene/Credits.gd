@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	pass 
+	global.change_cursor(4)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
