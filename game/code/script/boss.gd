@@ -5,7 +5,7 @@ export (int) var speed: int = 90
 export (float) var path_update_interval: float = 0.3
 export (float) var direction_threshold: float = 10.0  # Adicione um buffer para evitar inversões rápidas
 export (float) var stop_distance: float = 22.0  # Distância mínima para parar antes de colidir com o player
-var life = 6
+var life = 50
 # Referências de nodos
 onready var player_a = get_tree().get_nodes_in_group("hero")
 onready var player = player_a[0]
@@ -19,26 +19,43 @@ var time_since_last_update: float = 0.0
 
 var id_weapon
 var atacking = false
-var timer_att: Timer
+var can_shoot = false
 var flip = false
+var invinsible = false 
+
+var min_time_cooldown = 1.5
+var max_time_cooldown = 2.5
 
 var stat_weapon = [
-	{"damage_": 2, "speed_": 10, "lifespan_": 0.3, "dimension_": Vector2(22, 38), "rotate_": true}
+	{"damage_": 5, "speed_": 0, "lifespan_": 1.1, "dimension_": Vector2(65, 43), "rotate_": true, "timestamp_": 0.3},
+	{"damage_": 5, "speed_": 200, "lifespan_": 1, "dimension_": Vector2(32, 32), "rotate_": true, "timestamp_": 0.3}
 ]
 
 func _ready():
+	$hud/lifebar.value = life * 3  
+	$weapon.visible = false
+	$shield_body/shield.visible = false
 	$weapon.play("lance")
-	id_weapon = 0
+	id_weapon = 1
 	update_path()
+	
+	$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
+	$TimerCooldown.start()
+	
+	Events.connect("player_weapon_buster", self, "on_player_weapon_buster")
 
 func _physics_process(delta):
-	if life > 0:
-		var dir = get_direction()
+	$hud/lifebar.value = life * 3
+	var dir = get_direction()
 
-		var angle 
-		angle =  rad2deg(atan2(dir.y, dir.x))
+	var angle 
+	angle =  rad2deg(atan2(dir.y, dir.x))
 
-		$weapon.rotation_degrees = angle 
+	$weapon.rotation_degrees = angle 
+
+	$shield_body.rotation_degrees = angle 
+	
+	if life > 0 and !atacking:
 			
 		
 		time_since_last_update += delta
@@ -52,6 +69,12 @@ func _physics_process(delta):
 			if animated_sprite.is_playing() and animated_sprite.animation == "Walk":
 				animated_sprite.stop()
 				animated_sprite.play("Idle")
+		
+		if can_shoot:
+			attack()
+	elif atacking:
+		if animated_sprite.is_playing() and !animated_sprite.animation == "Atk": 
+			animated_sprite.play("Atk")
 	else: 
 		$weapon.visible = false
 		animated_sprite.play("Death")
@@ -104,21 +127,70 @@ func attack():
 	var inst_proj = pack_proj.instance()
 	var stat = stat_weapon[id_weapon]
 	atacking = true
+	can_shoot = false
 #	if id_weapon == 2:
 #		$weapon.visible = false
-	timer_att = Timer.new()
-	if id_weapon == 1:
-		timer_att.set_wait_time(0.2)
-	else:
-		timer_att.set_wait_time(stat.lifespan_)
-	timer_att.connect("timeout", self, "_on_timeratt_timeout")
-	add_child(timer_att)
-	timer_att.start()
-	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip)
-	get_parent().add_child(inst_proj)
-	inst_proj.raise()
+	if id_weapon == 0:
+		animated_sprite.play("Atk")
+		inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip, stat.timestamp_)
+		get_parent().add_child(inst_proj)
+		$TimerAttack.wait_time = stat.lifespan_
+		$TimerAttack.start()
+		inst_proj.raise()
+	elif id_weapon == 1:
+		animated_sprite.play("Atk")
+		$weapon.visible = true
+		$weapon.play("lance_1")
+		$timer.start()
+		
 #	if id_weapon != 2:
 #		$weapon.play("attack_" + (str(id_weapon)))
 
 func get_direction() -> Vector2:
 	return global_position.direction_to(player.global_position)
+
+func damage(amount):
+	if !invinsible:
+		life = max(0, life - amount)
+		invinsible = true
+		$effect.play("damage")
+
+func _on_TimerCooldown_timeout():
+	can_shoot = true
+
+func _on_TimerAttack_timeout():
+	atacking = false
+	$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
+	$TimerCooldown.start()
+
+func _on_effect_animation_finished(anim_name):
+	print(anim_name)
+	if anim_name == "damage":
+		$effect.play("idle")
+		invinsible = false
+
+func _on_timer_timeout():
+	var pack_proj = preload("res://scene/boos_weapon.tscn")
+	var inst_proj = pack_proj.instance()
+	var stat = stat_weapon[id_weapon]
+	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip, stat.timestamp_)
+	get_parent().add_child(inst_proj)
+	$TimerAttack.wait_time = stat.lifespan_
+	$TimerAttack.start()
+	inst_proj.raise()
+
+
+func _on_weapon_animation_finished():
+	if $weapon.playing and $weapon.animation == "lance_1":
+		$weapon.visible = false
+		$weapon.play("lance")
+
+func on_player_weapon_buster():
+	$shield_body/shield.visible = true
+	$shield_body/shield.play("shield")
+	$timer_shield.start()
+
+func _on_timer_shield_timeout():
+	$shield_body/shield.play("shield_back")
+	yield($shield_body/shield, "animation_finished")
+	$shield_body/shield.visible = false

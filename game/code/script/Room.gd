@@ -122,7 +122,7 @@ func _on_PlayerDetector_body_entered(body):
 		if get_name() == Storage.battery_localization and !Storage.puzzle_complete and !batery_catch:
 			batery_catch = true
 			get_parent().start_dialogue("sala-bateria")
-	if body.is_in_group("mob"):
+	if body.is_in_group("mob") or body.is_in_group("boss"):
 		Events.emit_enemy_entered(self)
 		Events.emit_enemy_room_entered(body,self)
 		if playerBody:
@@ -132,11 +132,11 @@ func _on_PlayerDetector_body_entered(body):
 func _on_PlayerDetector_body_exited(body):
 	if body.name == "Player":
 		playerBody = null
-	if body.is_in_group("mob"):
+	if body.is_in_group("mob")  or body.is_in_group("boss"):
 		Events.emit_enemy_left(self)
 	
 		_on_enemy_left()
-		if get_name() == "Room7" and playerBody.life != 0 and enemies_in_room == 0:
+		if get_name() == "Room7" and playerBody and playerBody.life != 0 and enemies_in_room == 0:
 			get_parent().start_dialogue("final")
 
 func _on_enemy_entered():

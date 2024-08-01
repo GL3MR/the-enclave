@@ -17,7 +17,7 @@ var flip = true
 var stat_weapon = [
 	{"damage_": 2, "speed_": 10, "lifespan_": 0.3, "dimension_": Vector2(22, 38), "rotate_": true}, 
 	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(9, 6), "rotate_": true}, 
-	{"damage_": 3, "speed_": 0, "lifespan_": 0.7, "dimension_": Vector2(28, 10), "rotate_": true}
+	{"damage_": 6, "speed_": 0, "lifespan_": 0.7, "dimension_": Vector2(28, 10), "rotate_": true}
 ]
 
 var id_weapon = 0  
@@ -231,6 +231,7 @@ func attack():
 		timer_att.connect("timeout", self, "_on_timeratt_timeout")
 		add_child(timer_att)
 	if id_weapon == 1:
+		Events.emit_player_weapon_buster()
 		timer_att.set_wait_time(0.4)
 	else:
 		timer_att.set_wait_time(stat.lifespan_)

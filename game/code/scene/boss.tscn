@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=2]
+[gd_scene load_steps=109 format=2]
 
 [ext_resource path="res://script/boss.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-idle_1.png" type="Texture" id=2]
@@ -11,18 +11,19 @@
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_2.png" type="Texture" id=9]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_1.png" type="Texture" id=10]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_1-spear.png" type="Texture" id=11]
+[ext_resource path="res://assets/art/ui/png/lifebar-boss.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/ui/png/lifebar-barra-boss-back.png" type="Texture" id=13]
+[ext_resource path="res://assets/art/ui/png/lifebar-barra-boss.png" type="Texture" id=14]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_2-spear.png" type="Texture" id=15]
+[ext_resource path="res://scene/shield_body.tscn" type="PackedScene" id=16]
 
-[sub_resource type="AtlasTexture" id=90]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 30, 64, 65 )
+[sub_resource type="CapsuleShape2D" id=92]
+radius = 16.0
+height = 6.0
 
 [sub_resource type="AtlasTexture" id=91]
 atlas = ExtResource( 10 )
 region = Rect2( 128, 30, 64, 65 )
-
-[sub_resource type="AtlasTexture" id=87]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 20, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=88]
 atlas = ExtResource( 9 )
@@ -330,12 +331,12 @@ region = Rect2( 911, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 90 ), SubResource( 91 ) ],
+"frames": [ SubResource( 91 ) ],
 "loop": true,
 "name": "Atk",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 87 ), SubResource( 88 ) ],
+"frames": [ SubResource( 88 ) ],
 "loop": true,
 "name": "Atk2",
 "speed": 5.0
@@ -376,13 +377,45 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=92]
-radius = 16.0
-height = 6.0
-
 [sub_resource type="AtlasTexture" id=95]
 atlas = ExtResource( 11 )
 region = Rect2( 256, 48, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 15 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 15 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 15 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 15 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 15 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 15 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 15 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=106]
+atlas = ExtResource( 15 )
+region = Rect2( 1024, 0, 128, 128 )
 
 [sub_resource type="SpriteFrames" id=94]
 animations = [ {
@@ -390,28 +423,117 @@ animations = [ {
 "loop": false,
 "name": "lance",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ) ],
+"loop": false,
+"name": "lance_1",
+"speed": 10.0
 } ]
 
+[sub_resource type="Animation" id=96]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ) ]
+}
+
+[sub_resource type="Animation" id=97]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="boss" type="KinematicBody2D" groups=["boss"]]
+collision_layer = 16
 collision_mask = 17
 script = ExtResource( 1 )
 
+[node name="Shape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 5, 3 )
+shape = SubResource( 92 )
+
+[node name="Timers" type="Node2D" parent="."]
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -40 )
+z_index = 1
 frames = SubResource( 9 )
 animation = "Idle"
 frame = 3
 playing = true
 offset = Vector2( 4, 41 )
 
-[node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2( 5, 3 )
-shape = SubResource( 92 )
-
-[node name="Timers" type="Node2D" parent="."]
-
 [node name="weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 7, 4 )
 frames = SubResource( 94 )
-animation = "lance"
+animation = "lance_1"
 offset = Vector2( 40, 0 )
+
+[node name="shield_body" parent="." instance=ExtResource( 16 )]
+z_index = 1
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="lifebar" type="TextureProgress" parent="hud"]
+margin_left = 128.0
+margin_top = 208.0
+margin_right = 278.0
+margin_bottom = 214.0
+max_value = 150.0
+value = 150.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 14 )
+
+[node name="life_bar_ui" type="TextureRect" parent="hud/lifebar"]
+margin_left = -22.0
+margin_top = -13.0
+margin_right = 154.0
+margin_bottom = 19.0
+texture = ExtResource( 12 )
+stretch_mode = 3
+
+[node name="TimerCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TimerAttack" type="Timer" parent="."]
+one_shot = true
+
+[node name="effect" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite")
+autoplay = "idle"
+reset_on_save = false
+anims/damage = SubResource( 96 )
+anims/idle = SubResource( 97 )
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="timer_shield" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="weapon" to="." method="_on_weapon_animation_finished"]
+[connection signal="timeout" from="TimerCooldown" to="." method="_on_TimerCooldown_timeout"]
+[connection signal="timeout" from="TimerAttack" to="." method="_on_TimerAttack_timeout"]
+[connection signal="animation_finished" from="effect" to="." method="_on_effect_animation_finished"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timer_shield" to="." method="_on_timer_shield_timeout"]
