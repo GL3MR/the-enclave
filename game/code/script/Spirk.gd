@@ -17,25 +17,42 @@ var max_time_cooldown = 4.5
 
 var loot = preload("res://scene/loot.tscn")
 
+var in_dialog = false
+
 func _ready():
 	speed = 170
 	Events.connect("player_room_entered", self, "_on_player_room_entered")
 	Events.connect("enemy_room_entered", self, "_on_enemy_room_entered")
-	$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
-	$TimerCooldown.start()
+	Events.connect("in_dialog", self, "_on_in_dialog")
+	Events.connect("timeline_ended", self, "on_timeline_ended")
+	
+	if !in_dialog:
+		$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
+		$TimerCooldown.start()
+		
 	fleeing = false
 	idle()
+
+func _on_in_dialog():
+	in_dialog = true
+
+func on_timeline_ended():
+	in_dialog = false
+	$TimerCooldown.wait_time = rand_range(min_time_cooldown, max_time_cooldown)
+	$TimerCooldown.start()
 
 func _physics_process(delta):
 	if player:
 		player_side = player.position.x - position.x
-	if !fleeing:
+	if life != 0 and in_dialog and $SpirkAnimation.animation != "idle":
+		idle()
+	elif can_shoot and not fleeing and life != 0:
+		attack()
+	elif !fleeing:
 		if player_side < 0:
 			$SpirkAnimation.flip_h = true
 		else:
 			$SpirkAnimation.flip_h = false
-	if can_shoot and not fleeing and life != 0:
-		attack()
 	elif fleeing and life != 0:
 		walk(delta)
 
@@ -143,7 +160,6 @@ func _on_FarArea_body_exited(body):
 func drop():
 	var nb
 	nb = randi()%100
-	print(nb)
 	if nb < 10:
 		var newloot = loot.instance()
 		get_parent().add_child(newloot)
