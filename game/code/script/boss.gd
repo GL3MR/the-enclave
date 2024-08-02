@@ -57,10 +57,11 @@ var teleport_points_2 = [
 
 var stat_weapon = [
 	{"damage_": 5, "speed_": 0, "lifespan_": 1.1, "dimension_": Vector2(65, 32), "rotate_": true, "timestamp_": 0.3},
-	{"damage_": 7, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(48, 32), "rotate_": true, "timestamp_": 0.3}
+	{"damage_": 7, "speed_": 600, "lifespan_": 1, "dimension_": Vector2(48, 32), "rotate_": true, "timestamp_": 0.3}
 ]
 
 func _ready():
+	MusicManager.play("Music_Boss")
 	$hud/lifebar.value = life * 3  
 	$hud/lifebar.visible = false
 	$open.start()
@@ -368,9 +369,9 @@ func _on_AnimatedSprite_animation_finished():
 		animated_sprite.play("shield")
 		$timer_gold_flash.start()
 		$timer_shield_attack.start()
-	elif $AnimatedSprite.animation == "Teleport_Back" and open:
+	elif $AnimatedSprite.animation == "Teleport0" and open:
 		$walk.stop()
-		MusicManager.play("Music_Boss")
+		animated_sprite.flip_h = false
 		animated_sprite.play("Start")
 	elif $AnimatedSprite.animation == "Start":
 		open = false
@@ -423,4 +424,4 @@ func _on_timer_gold_flash_timeout():
 func _on_open_timeout():
 	Events.emit_in_dialog()
 	$walk.stop()
-	animated_sprite.play("Teleport_Back")
+	animated_sprite.play("Teleport0")

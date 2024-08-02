@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=2]
+[gd_scene load_steps=151 format=2]
 
 [ext_resource path="res://script/boss.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-idle_1.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Charge attack.mp3" type="AudioStream" id=25]
 [ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Ataque bola de fogo.mp3" type="AudioStream" id=26]
 [ext_resource path="res://assets/audio/sfx/enemies/Inimigos tomando dano.mp3" type="AudioStream" id=27]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-teleport0.png" type="Texture" id=28]
 
 [sub_resource type="CapsuleShape2D" id=92]
 radius = 16.0
@@ -240,6 +241,22 @@ region = Rect2( 0, 32, 64, 62 )
 atlas = ExtResource( 19 )
 region = Rect2( 64, 32, 64, 62 )
 
+[sub_resource type="AtlasTexture" id=134]
+atlas = ExtResource( 28 )
+region = Rect2( 576, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=135]
+atlas = ExtResource( 28 )
+region = Rect2( 0, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=136]
+atlas = ExtResource( 28 )
+region = Rect2( 256, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=137]
+atlas = ExtResource( 28 )
+region = Rect2( 512, 32, 64, 62 )
+
 [sub_resource type="AtlasTexture" id=132]
 atlas = ExtResource( 19 )
 region = Rect2( 192, 32, 64, 62 )
@@ -445,6 +462,11 @@ animations = [ {
 "name": "Teleport",
 "speed": 10.0
 }, {
+"frames": [ SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ) ],
+"loop": true,
+"name": "Teleport0",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 132 ), SubResource( 131 ), SubResource( 130 ), SubResource( 129 ) ],
 "loop": false,
 "name": "Teleport_Back",
@@ -613,7 +635,7 @@ shape = SubResource( 92 )
 position = Vector2( 0, -40 )
 z_index = 1
 frames = SubResource( 9 )
-animation = "Teleport_Back"
+animation = "Teleport0"
 offset = Vector2( 4, 41 )
 
 [node name="shield" type="AnimatedSprite" parent="."]
@@ -635,9 +657,9 @@ z_index = 1
 
 [node name="lifebar" type="TextureProgress" parent="hud"]
 margin_left = 128.0
-margin_top = 208.0
+margin_top = 202.0
 margin_right = 278.0
-margin_bottom = 214.0
+margin_bottom = 208.0
 max_value = 150.0
 value = 150.0
 texture_under = ExtResource( 13 )
