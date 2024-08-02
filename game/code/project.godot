@@ -93,7 +93,7 @@ Enums="*res://script/Enums.gd"
 Storage="*res://script/storage.gd"
 SceneTransition="*res://scene/Scene_Transition.tscn"
 MusicManager="*res://scene/MusicManager.tscn"
-Camera2d="*res://script/Camera2D.gd"
+Camera2d="*res://scene/Camera2D.tscn"
 
 [display]
 

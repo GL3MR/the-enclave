@@ -229,3 +229,6 @@ func _input(event):
 				start_dialogue("tutorial-3")
 			if room_active.get_name() == "Room5":
 				start_dialogue("tutorial-4")
+
+func _exit_tree():
+	Camera2d.position = Vector2(0,0)

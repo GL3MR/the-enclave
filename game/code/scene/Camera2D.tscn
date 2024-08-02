@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Camera2D
+
+export var NOISE_SHAKE_SPEED: float = 20.0
+export var NOISE_SHAKE_STRENGTH: float = 10.0
+export var SHAKE_DECAY_RATE: float = 5.0
+onready var rand = RandomNumberGenerator.new()
+onready var noise = OpenSimplexNoise.new()
+var noise_i: float = 0.0
+var shake_strength: float = 0.0
+
+# Referência ao ColorRect
+onready var screen_flash = $ScreenFlash
+onready var tween = Tween.new()
+
+func _ready() -> void:
+	add_child(tween)
+	rand.randomize()
+	noise.seed = rand.randi()
+	noise.period = 2
+	
+	Events.connect(\"room_entered\", self, \"_on_room_entered\")
+	Events.connect(\"hit_player\", self, \"_on_hit_player\")
+	Events.connect(\"flash_screen\", self, \"_on_flash_screen\")
+
+func _on_room_entered(room):
+	global_position = room.global_position
+
+func _process(delta):
+	shake_strength = lerp(shake_strength, 0, SHAKE_DECAY_RATE * delta)
+
+	offset = get_noise_offset(delta)
+
+func get_noise_offset(delta: float) -> Vector2:
+	noise_i += delta * NOISE_SHAKE_SPEED
+	
+	return Vector2(
+		noise.get_noise_2d(1, noise_i) * shake_strength,
+		noise.get_noise_2d(100, noise_i) * shake_strength
+	)
+
+func _on_hit_player():
+	shake_strength = NOISE_SHAKE_STRENGTH
+	
+func _on_flash_screen(color: Color):
+	screen_flash.color = color
+	flash_screen()
+
+# Função para iniciar o efeito de piscar
+func flash_screen():
+	# Tornar o ColorRect visível
+	screen_flash.visible = true
+	screen_flash.modulate.a = 1.0  # Opacidade total
+
+	# Configurar o Tween para reduzir a opacidade até zero
+	tween.interpolate_property(screen_flash, \"modulate:a\", 1.0, 0.0, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	
+	# Conectar sinal de fim da animação para esconder o ColorRect
+	tween.connect(\"tween_completed\", self, \"_on_tween_completed\")
+
+func _on_tween_completed(object, key):
+	# Ocultar o ColorRect após a animação
+	screen_flash.visible = false
+	tween.disconnect(\"tween_completed\", self, \"_on_tween_completed\")
+"
+
+[node name="Camera2D" type="Camera2D"]
+anchor_mode = 0
+current = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+script = SubResource( 1 )
+
+[node name="ScreenFlash" type="ColorRect" parent="."]
+visible = false
+margin_left = -25.0
+margin_top = -13.0
+margin_right = 410.0
+margin_bottom = 240.0
