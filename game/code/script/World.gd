@@ -169,7 +169,7 @@ func _on_AreaTutorial3_body_entered(body):
 
 func start_dialogue(dialogue_name: String):
 	var dialogic = Dialogic.start(dialogue_name)
-	add_child(dialogic)
+	call_deferred("add_child", dialogic)
 	in_dialog = true
 	$Timer.start()
 	dialogic.connect("timeline_end", self, "_on_timeline_end")

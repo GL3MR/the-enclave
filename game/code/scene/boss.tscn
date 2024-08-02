@@ -699,6 +699,10 @@ one_shot = true
 wait_time = 0.9
 one_shot = true
 
+[node name="open" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="shield" to="." method="_on_shield_animation_finished"]
 [connection signal="animation_finished" from="weapon" to="." method="_on_weapon_animation_finished"]
@@ -716,3 +720,4 @@ one_shot = true
 [connection signal="body_exited" from="range" to="." method="_on_range_body_exited"]
 [connection signal="timeout" from="timer_transformation_flash" to="." method="_on_timer_transformation_flash_timeout"]
 [connection signal="timeout" from="timer_shield_attack" to="." method="_on_timer_shield_attack_timeout"]
+[connection signal="timeout" from="open" to="." method="_on_open_timeout"]

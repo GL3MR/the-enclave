@@ -162,9 +162,11 @@ func _physics_process(delta):
 
 func _on_in_dialog():
 	in_dialog = true
+	$weapon.visible = false
 
 func on_timeline_ended():
 	in_dialog = false
+	$weapon.visible = true
 
 	if in_dialog:
 		anim_switch("idle")

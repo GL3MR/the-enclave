@@ -47,6 +47,7 @@ func spawn_dragon():
 		head.set_cell(true,true,90)
 	if head_dir == 'left': 
 		head.set_cell(true,false,90)
+	print(head_dir)
 	
 	dragon_body.append({'node': head, 'prev_dir': head_dir})
 

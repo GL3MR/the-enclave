@@ -100,6 +100,11 @@ func find_positions_spawn():
 func _on_PlayerDetector_body_entered(body):
 	if body.name == "Player":
 		Events.emit_in_tutoriald(is_tutorial)
+		if self == self.get_parent().get_node("Room7"):
+			var pack_boss = preload("res://scene/boss.tscn")
+			var inst_boss = pack_boss.instance()
+			inst_boss.global_position = $SpawnArea/Spawn135.global_position
+			get_parent().call_deferred("add_child", inst_boss)
 		if self == self.get_parent().get_node("Room6"):
 			Storage.tutorial_complete = true
 			Storage.save_game_data()

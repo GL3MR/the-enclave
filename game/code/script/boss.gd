@@ -32,6 +32,7 @@ var can_shoot_2 = false
 var flip = false
 var invinsible = false 
 var gold = false
+var open = true
 
 var min_time_cooldown = 1.5
 var max_time_cooldown = 2.5
@@ -49,6 +50,11 @@ var teleport_points = [
 	Vector2(694, -62)
 ]
 
+var teleport_points_2 = [
+	Vector2(472, -104),
+	Vector2(680, -104)
+]
+
 var stat_weapon = [
 	{"damage_": 5, "speed_": 0, "lifespan_": 1.1, "dimension_": Vector2(65, 32), "rotate_": true, "timestamp_": 0.3},
 	{"damage_": 7, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(32, 32), "rotate_": true, "timestamp_": 0.3}
@@ -56,6 +62,8 @@ var stat_weapon = [
 
 func _ready():
 	$hud/lifebar.value = life * 3  
+	$hud/lifebar.visible = false
+	$open.start()
 	$weapon.visible = false
 	$shield_body/shield.visible = false
 	$weapon.play("lance")
@@ -86,58 +94,59 @@ func on_dragon_catch_boss(body):
 	$TimerCooldown3.wait_time = rand_range(min_time_cooldown_2, max_time_cooldown_2)
 	$TimerCooldown3.start()
 	
-	damage(10, true)
+	damage(5, true)
 
 func _physics_process(delta):
-	$hud/lifebar.value = life * 3
-	
-	var dir = get_direction()
-
-	var angle 
-	angle =  rad2deg(atan2(dir.y, dir.x))
-
-	$weapon.rotation_degrees = angle 
-
-	$shield_body.rotation_degrees = angle 
-	
-	if can_transform and !transformation and !animation:
-		animated_sprite.flip_h = !animated_sprite.flip_h
-		flip = !flip
-		animation = true
-		form = 1
-		$timer_transformation_flash.start()
-		$AnimatedSprite.play("Transformation")
-	elif life > 0 and !atacking and !animation:
-		time_since_last_update += delta
-		if time_since_last_update >= path_update_interval:
-			time_since_last_update = 0.0
-			update_path()
+	if !open:
+		$hud/lifebar.value = life * 3
 		
-		if path.size() > 0:
-			move_along_path(delta)
-		else:
-			if animated_sprite.is_playing() and animated_sprite.animation.find("Walk") != -1:
-				animated_sprite.stop()
-				animated_sprite.play("Idle" + str(form))
-				
-		if player.life > 0:
-			if can_shoot_2:
-				attack(2)
-			elif can_shoot_1:
-				attack(1)
-			elif can_shoot_0 and range_0:
-				attack(0)
-	elif atacking and !gold and !animation:
-		if animated_sprite.is_playing() and !animated_sprite.animation.find("Atk") != -1: 
-			animated_sprite.play("Atk" + str(form))
-	elif life == 0 and !animation: 
-		animation = true
-		animated_sprite.flip_h = !animated_sprite.flip_h
-		flip = !flip
-		$weapon.visible = false
-		animated_sprite.play("Death")
-		yield($AnimatedSprite, "animation_finished")
-		queue_free()
+		var dir = get_direction()
+
+		var angle 
+		angle =  rad2deg(atan2(dir.y, dir.x))
+
+		$weapon.rotation_degrees = angle 
+
+		$shield_body.rotation_degrees = angle 
+		
+		if can_transform and !transformation and !animation:
+			animated_sprite.flip_h = !animated_sprite.flip_h
+			flip = !flip
+			animation = true
+			form = 1
+			$timer_transformation_flash.start()
+			$AnimatedSprite.play("Transformation")
+		elif life > 0 and !atacking and !animation:
+			time_since_last_update += delta
+			if time_since_last_update >= path_update_interval:
+				time_since_last_update = 0.0
+				update_path()
+			
+			if path.size() > 0:
+				move_along_path(delta)
+			else:
+				if animated_sprite.is_playing() and animated_sprite.animation.find("Walk") != -1:
+					animated_sprite.stop()
+					animated_sprite.play("Idle" + str(form))
+					
+			if player.life > 0:
+				if can_shoot_2:
+					attack(2)
+				elif can_shoot_1:
+					attack(1)
+				elif can_shoot_0 and range_0:
+					attack(0)
+		elif atacking and !gold and !animation:
+			if animated_sprite.is_playing() and !animated_sprite.animation.find("Atk") != -1: 
+				animated_sprite.play("Atk" + str(form))
+		elif life == 0 and !animation: 
+			animation = true
+			animated_sprite.flip_h = !animated_sprite.flip_h
+			flip = !flip
+			$weapon.visible = false
+			animated_sprite.play("Death")
+			yield($AnimatedSprite, "animation_finished")
+			queue_free()
 
 func update_path():
 	# Atualiza o caminho para o jogador
@@ -209,12 +218,11 @@ func attack_with_weapon_1():
 	animated_sprite.play("Teleport")
 
 func attack_with_weapon_2():
+	animation = true
 	atacking = true
 	gold = true
 	can_shoot_2 = false
-	animated_sprite.play("shield")
-	$timer_gold_flash.start()
-	$timer_shield_attack.start()
+	animated_sprite.play("Teleport")
 	
 func get_direction() -> Vector2:
 	return global_position.direction_to(player.global_position)
@@ -292,6 +300,21 @@ func perform_teleport():
 	teleport_to(random_point)
 	$AnimatedSprite.play("Teleport_Back")
 
+func perform_teleport_2():
+	teleport_to(get_farthest_point())
+	$AnimatedSprite.play("Teleport_Back")
+
+func get_farthest_point() -> Vector2:
+	var farthest_point = teleport_points_2[0]
+	var max_distance = player.global_position.distance_to(farthest_point)
+	
+	for point in teleport_points_2:
+		var distance = player.global_position.distance_to(point)
+		if distance > max_distance:
+			max_distance = distance
+			farthest_point = point
+	
+	return farthest_point
 
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "Transformation":
@@ -304,15 +327,28 @@ func _on_AnimatedSprite_animation_finished():
 		
 		$TimerCooldown3.wait_time = rand_range(min_time_cooldown_2, max_time_cooldown_2)
 		$TimerCooldown3.start()
-	elif $AnimatedSprite.animation == "Teleport":
+	elif $AnimatedSprite.animation == "Teleport" and !gold:
 		perform_teleport()
-	elif $AnimatedSprite.animation == "Teleport_Back":
+	elif $AnimatedSprite.animation == "Teleport" and gold:
+		perform_teleport_2()
+	elif $AnimatedSprite.animation == "Teleport_Back" and !open and !gold:
 		animation = false
 		var stat = stat_weapon[1]
 		animated_sprite.play("Atk" + str(form))
 		$weapon.visible = true
 		$weapon.play("lance_1")
 		$timer.start()
+	elif $AnimatedSprite.animation == "Teleport_Back" and !open and gold:
+		animation = false
+		animated_sprite.play("shield")
+		$timer_gold_flash.start()
+		$timer_shield_attack.start()
+	elif $AnimatedSprite.animation == "Teleport_Back" and open:
+		animated_sprite.play("Start")
+	elif $AnimatedSprite.animation == "Start":
+		open = false
+		$hud/lifebar.visible = true
+		Events.emit_timeline_ended()
 
 
 func _on_range_body_entered(body):
@@ -346,3 +382,8 @@ func _on_shield_animation_finished():
 
 func _on_timer_gold_flash_timeout():
 	Events.emit_flash_screen(Color(1, 0.87451, 0.27451))
+
+
+func _on_open_timeout():
+	Events.emit_in_dialog()
+	animated_sprite.play("Teleport_Back")
