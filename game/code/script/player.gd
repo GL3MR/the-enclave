@@ -17,7 +17,7 @@ var flip = true
 var stat_weapon = [
 	{"damage_": 2, "speed_": 10, "lifespan_": 0.3, "dimension_": Vector2(22, 38), "rotate_": true}, 
 	{"damage_": 1, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(9, 6), "rotate_": true}, 
-	{"damage_": 6, "speed_": 0, "lifespan_": 0.7, "dimension_": Vector2(28, 10), "rotate_": true}
+	{"damage_": 3, "speed_": 0, "lifespan_": 0.7, "dimension_": Vector2(28, 10), "rotate_": true}
 ]
 
 var id_weapon = 0  
@@ -243,8 +243,8 @@ func attack():
 	if id_weapon != 2:
 		$weapon.play("attack_" + (str(id_weapon)))
 
-func hit(dmg):
-	if not invinsible and life != 0:
+func hit(dmg, not_invinsible = false):
+	if (!invinsible or not_invinsible) and life != 0:
 		Events.emit_hit_player()
 		invinsible = true
 		life = max(0, life - dmg)

@@ -22,6 +22,9 @@ signal in_tutorial(in_tutorial)
 signal in_interactive_zone(in_interactive_zone)
 signal hit_player()
 signal player_weapon_buster()
+signal flash_screen(color)
+signal dragon_catch_player(body)
+signal dragon_catch_boss(body)
 
 func emit_room_entered(room):
 	emit_signal("room_entered", room)
@@ -88,3 +91,13 @@ func emit_hit_player():
 
 func emit_player_weapon_buster():
 	emit_signal("player_weapon_buster")
+
+func emit_flash_screen(color):
+	emit_signal("flash_screen", color)
+
+func emit_dragon_catch_player(body):
+	emit_signal("dragon_catch_player", body)
+
+func emit_dragon_catch_boss(body):
+	emit_signal("dragon_catch_boss", body)
+

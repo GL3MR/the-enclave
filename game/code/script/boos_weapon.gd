@@ -73,7 +73,7 @@ func _on_area_body_entered(body):
 	if body is TileMap:
 		if id == 1:
 			weapon_1_blust()
-	if body.is_in_group("hero"):
+	if body.is_in_group("hero") and !body.invinsible:
 		body.hit(damage_) 
 		if id == 1:
 			weapon_1_blust()

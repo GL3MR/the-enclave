@@ -28,3 +28,12 @@ func set_cell(curve: bool, flip_h: bool = false, flip_v: bool = false, transpose
 			apparance = apparance.substr(0, apparance.length() - 1)
 	
 	$apparance.play(apparance)
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("hero"):
+		$Area2D.set_deferred("monitoring", false)
+		Events.emit_dragon_catch_player(body)
+	if body.is_in_group("boss"):
+		$Area2D.set_deferred("monitoring", false)
+		Events.emit_dragon_catch_boss(body)

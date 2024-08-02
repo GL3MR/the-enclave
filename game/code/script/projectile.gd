@@ -63,7 +63,7 @@ func _on_area_body_entered(body):
 		$area/col.call_deferred("set_disabled", true)
 		if id == 1:
 			weapon_1_blust()
-	elif body.is_in_group("boss") and allie_ and body.life > 0:
+	elif body.is_in_group("boss") and allie_ and body.life > 0  and !body.invinsible:
 		body.damage(damage_) 
 		if id == 1:
 			weapon_1_blust()
