@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://script/projectile.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/weapon/png/buster-projectile.png" type="Texture" id=2]
@@ -31,6 +31,18 @@ region = Rect2( 32, 0, 32, 32 )
 [sub_resource type="AtlasTexture" id=51]
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=52]
 atlas = ExtResource( 4 )
@@ -72,8 +84,13 @@ animations = [ {
 "name": "weapon1",
 "speed": 10.0
 }, {
+"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ) ],
+"loop": false,
+"name": "weapon1-blust",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ) ],
-"loop": true,
+"loop": false,
 "name": "weapon2",
 "speed": 10.0
 } ]
@@ -83,6 +100,7 @@ z_index = 1
 script = ExtResource( 1 )
 
 [node name="area" type="Area2D" parent="."]
+collision_mask = 127
 
 [node name="col" type="CollisionShape2D" parent="area"]
 shape = SubResource( 1 )
@@ -90,7 +108,7 @@ shape = SubResource( 1 )
 [node name="apparence" type="AnimatedSprite" parent="."]
 position = Vector2( 15, 0 )
 frames = SubResource( 2 )
-animation = "weapon0"
+animation = "weapon1-blust"
 offset = Vector2( 5, 0 )
 
 [node name="Light2D" type="Light2D" parent="."]

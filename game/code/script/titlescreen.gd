@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	MusicManager.play("Music_Menu")
+	global.change_cursor(4)
 
 func _input(event):
 	
@@ -11,6 +12,9 @@ func _input(event):
 		else:
 			
 			SceneTransition.change_scene("res://scene/Menu.tscn")
+	
+	if event is InputEventMouseButton:
+		SceneTransition.change_scene("res://scene/Menu.tscn")
 
 	if event is InputEventJoypadButton:
 		if event.button_index == JOY_START:

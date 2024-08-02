@@ -9,7 +9,7 @@ var life: int
 var max_life = 25
 var timer = null 
 var speed = 100  
-var dash_speed = 160 
+var dash_speed = 200 
 var invinsible = false 
 
 var flip = true
@@ -45,6 +45,8 @@ var timer_death
 var angle_weapon_1 = 0
 
 var in_dialog = false
+
+var shadow_interval = 0.05
 
 func _ready():
 	
@@ -160,9 +162,11 @@ func _physics_process(delta):
 
 func _on_in_dialog():
 	in_dialog = true
+	$weapon.visible = false
 
 func on_timeline_ended():
 	in_dialog = false
+	$weapon.visible = true
 
 	if in_dialog:
 		anim_switch("idle")
@@ -189,21 +193,29 @@ func switch():
 	$weapon.play(str(id_weapon))
 
 func apparence_hud():
-	$hud/weapon_switch.set_texture(load(path_weapon[id_weapon]))
+	if life > 0:
+		$hud/weapon_switch.set_texture(load(path_weapon[id_weapon]))
+		global.change_cursor(id_weapon)
+	
 
 func dash():
 	Events.emit_tutorial_player_dashed()
 	dashing = true
-	timer_dash = Timer.new()
-	timer_dash.set_wait_time(0.2)
-	timer_dash.connect("timeout", self, "_on_timerdash_timeout")
-	add_child(timer_dash)
+	invinsible = true
+	if !timer_dash:
+		timer_dash = Timer.new()
+		add_child(timer_dash)
+		timer_dash.set_wait_time(0.2)
+		timer_dash.one_shot = true
+		timer_dash.connect("timeout", self, "_on_timerdash_timeout")
 	timer_dash.start()
-	anim_switch("dash")
-	$dash.play()
 	if true_direction == Vector2.ZERO:
 		true_direction = direction
 	direction = true_direction 
+	
+	anim_switch("dash")
+	$dash.play()
+	creat_dash_effect()
 
 func attack():
 	if angle_weapon_1 == 0:
@@ -216,60 +228,68 @@ func attack():
 	atacking = true
 	if id_weapon == 2:
 		$weapon.visible = false
-	timer_att = Timer.new()
+	if !timer_att:
+		timer_att = Timer.new()
+		timer_att.connect("timeout", self, "_on_timeratt_timeout")
+		add_child(timer_att)
 	if id_weapon == 1:
-		timer_att.set_wait_time(0.2)
+		Events.emit_player_weapon_buster()
+		timer_att.set_wait_time(0.4)
 	else:
 		timer_att.set_wait_time(stat.lifespan_)
-	timer_att.connect("timeout", self, "_on_timeratt_timeout")
-	add_child(timer_att)
 	timer_att.start()
+	global.change_cursor(3)
 	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, id_weapon, get_direction(), $weapon.global_position, stat.rotate_, flip)
 	get_parent().add_child(inst_proj)
 	inst_proj.raise()
 	if id_weapon != 2:
 		$weapon.play("attack_" + (str(id_weapon)))
 
-func hit(dmg):
-	if not invinsible and life != 0:
+func hit(dmg, not_invinsible = false):
+	if (!invinsible or not_invinsible) and life != 0:
+		Events.emit_hit_player()
 		invinsible = true
 		life = max(0, life - dmg)
-		timer_damage = Timer.new()
-		timer_damage.set_wait_time(.5)
-		timer_damage.connect("timeout", self, "_on_timerdamage_timeout")
-		add_child(timer_damage)
-		timer_damage.start()
-		$effect.play("damage")
+		if life != 0:
+			if !timer_damage:
+				timer_damage = Timer.new()
+				timer_damage.set_wait_time(1)
+				timer_damage.connect("timeout", self, "_on_timerdamage_timeout")
+				add_child(timer_damage)
+			timer_damage.start()
+		if life != 0:
+			$effect.play("damage")
 		$hud/lifebar.value = life * 3
 		if life == 0:
 			dying = true
-			timer_death= Timer.new()
-			timer_death.set_wait_time(3)
-			timer_death.connect("timeout", self, "_on_timerdeath_timeout")
-			$weapon.visible = false
-			add_child(timer_death)
+			if !timer_death:
+				timer_death= Timer.new()
+				timer_death.set_wait_time(3)
+				timer_death.connect("timeout", self, "_on_timerdeath_timeout")
+				add_child(timer_death)
 			timer_death.start()
 			anim_switch("dead")
+			global.change_cursor(4)
+			$weapon.visible = false
 			$dying.play()
 
 
 func _on_timeratt_timeout():
-	timer_att.queue_free()
-	atacking = false
-	$weapon.visible = true
+	if life > 0:
+		global.change_cursor(id_weapon)
+		atacking = false
+		$weapon.visible = true
 
 func _on_timerdash_timeout():
-	creat_dash_effect()
-	timer_dash.queue_free()
 	dashing = false
+	invinsible = false
 
 func _on_timerdamage_timeout():
-	invinsible = false
-	timer_damage.queue_free()
-	$effect.play("idle")
+	if life > 0:
+		invinsible = false
+		$effect.play("idle")
 
 func _on_timerdeath_timeout():
-	timer_death.queue_free()
 	SceneTransition.change_scene("res://scene/game_over.tscn")
 
 func return_position():
@@ -281,30 +301,48 @@ func anim_switch(animation):
 		animation_player.play(new_anim)
 
 func get_direction() -> Vector2:
-	return global_position.direction_to(get_global_mouse_position())
-	
+	var mouse_position = get_global_mouse_position() + Vector2(0, -8)
+	var direction = (mouse_position - global_position).normalized()
+	return direction
 
 func creat_dash_effect():
+	# Timer to control the shadow creation
+	var shadow_timer = Timer.new()
+	shadow_timer.set_wait_time(shadow_interval)
+	shadow_timer.set_one_shot(false)
+	shadow_timer.connect("timeout", self, "_on_shadow_timer_timeout")
+	add_child(shadow_timer)
+	shadow_timer.start()
+
+	# Timer to stop the shadow creation after the dash ends
+	var dash_end_timer = Timer.new()
+	dash_end_timer.set_wait_time(0.2) # Adjust based on the dash duration
+	dash_end_timer.set_one_shot(true)
+	dash_end_timer.connect("timeout", shadow_timer, "stop")
+	add_child(dash_end_timer)
+	dash_end_timer.start()
+
+func _on_shadow_timer_timeout():
 	var player_copy_node = $sprite.duplicate()
 	get_parent().add_child(player_copy_node)
 	player_copy_node.global_position = global_position
 
-	# Ajuste a modulação para 0.2 no início
+	# Adjust modulation at the start
 	player_copy_node.modulate.a = 0.75
 	
-	# Crie um Tween para animar a opacidade
+	# Create a Tween to animate the opacity, scale, and rotation
 	var tween = Tween.new()
 	player_copy_node.add_child(tween)
-	tween.interpolate_property(player_copy_node, "modulate:a", 0.2, 0, 0.75, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+
+	tween.interpolate_property(player_copy_node, "modulate:a", player_copy_node.modulate.a, 0, 0.75, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
-	# Use um Timer para remover o sprite duplicado após a animação
+	# Timer to remove the shadow after the animation
 	var removal_timer = Timer.new()
-	removal_timer.set_wait_time(0.5)
+	removal_timer.set_wait_time(0.75)
 	removal_timer.connect("timeout", player_copy_node, "queue_free")
 	player_copy_node.add_child(removal_timer)
 	removal_timer.start()
-	
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_UP and event.is_pressed() and !atacking:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=2]
+[gd_scene load_steps=151 format=2]
 
 [ext_resource path="res://script/boss.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-idle_1.png" type="Texture" id=2]
@@ -11,22 +11,35 @@
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_2.png" type="Texture" id=9]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_1.png" type="Texture" id=10]
 [ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_1-spear.png" type="Texture" id=11]
+[ext_resource path="res://assets/art/ui/png/lifebar-boss.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/ui/png/lifebar-barra-boss-back.png" type="Texture" id=13]
+[ext_resource path="res://assets/art/ui/png/lifebar-barra-boss.png" type="Texture" id=14]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_2-spear.png" type="Texture" id=15]
+[ext_resource path="res://scene/shield_body.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_3.png" type="Texture" id=17]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-ataque_3-shield.png" type="Texture" id=18]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-teleport.png" type="Texture" id=19]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Boss andando.mp3" type="AudioStream" id=20]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Ataque lava.mp3" type="AudioStream" id=21]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Boss Power Up.mp3" type="AudioStream" id=22]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Boss Morrendo.mp3" type="AudioStream" id=23]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Ataque drill Boss.mp3" type="AudioStream" id=24]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Charge attack.mp3" type="AudioStream" id=25]
+[ext_resource path="res://assets/audio/sfx/bosses/gallantgon/Ataque bola de fogo.mp3" type="AudioStream" id=26]
+[ext_resource path="res://assets/audio/sfx/enemies/Inimigos tomando dano.mp3" type="AudioStream" id=27]
+[ext_resource path="res://assets/art/bosses/gallantgon/png/gallantgon-animation-teleport0.png" type="Texture" id=28]
 
-[sub_resource type="AtlasTexture" id=90]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 30, 64, 65 )
+[sub_resource type="CapsuleShape2D" id=92]
+radius = 16.0
+height = 6.0
 
 [sub_resource type="AtlasTexture" id=91]
 atlas = ExtResource( 10 )
 region = Rect2( 128, 30, 64, 65 )
 
-[sub_resource type="AtlasTexture" id=87]
+[sub_resource type="AtlasTexture" id=108]
 atlas = ExtResource( 9 )
-region = Rect2( 0, 20, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=88]
-atlas = ExtResource( 9 )
-region = Rect2( 128, 20, 64, 64 )
+region = Rect2( 128, 32, 64, 62 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 4 )
@@ -212,6 +225,54 @@ region = Rect2( 2585, 0, 64, 64 )
 atlas = ExtResource( 7 )
 region = Rect2( 2713, 0, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=128]
+atlas = ExtResource( 19 )
+region = Rect2( 512, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=127]
+atlas = ExtResource( 19 )
+region = Rect2( 256, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=126]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=133]
+atlas = ExtResource( 19 )
+region = Rect2( 64, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=134]
+atlas = ExtResource( 28 )
+region = Rect2( 576, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=135]
+atlas = ExtResource( 28 )
+region = Rect2( 0, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=136]
+atlas = ExtResource( 28 )
+region = Rect2( 256, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=137]
+atlas = ExtResource( 28 )
+region = Rect2( 512, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=132]
+atlas = ExtResource( 19 )
+region = Rect2( 192, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=131]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=130]
+atlas = ExtResource( 19 )
+region = Rect2( 256, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=129]
+atlas = ExtResource( 19 )
+region = Rect2( 512, 32, 64, 62 )
+
 [sub_resource type="AtlasTexture" id=64]
 atlas = ExtResource( 8 )
 region = Rect2( 15, 0, 64, 64 )
@@ -328,31 +389,67 @@ region = Rect2( 783, 0, 64, 64 )
 atlas = ExtResource( 6 )
 region = Rect2( 911, 0, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 17 )
+region = Rect2( 128, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=111]
+atlas = ExtResource( 17 )
+region = Rect2( 256, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 17 )
+region = Rect2( 384, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=113]
+atlas = ExtResource( 17 )
+region = Rect2( 512, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=114]
+atlas = ExtResource( 17 )
+region = Rect2( 640, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 17 )
+region = Rect2( 768, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 17 )
+region = Rect2( 896, 32, 64, 62 )
+
+[sub_resource type="AtlasTexture" id=117]
+atlas = ExtResource( 17 )
+region = Rect2( 1152, 32, 64, 62 )
+
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 90 ), SubResource( 91 ) ],
-"loop": true,
-"name": "Atk",
+"frames": [ SubResource( 91 ) ],
+"loop": false,
+"name": "Atk0",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 87 ), SubResource( 88 ) ],
-"loop": true,
-"name": "Atk2",
-"speed": 5.0
+"frames": [ SubResource( 108 ) ],
+"loop": false,
+"name": "Atk1",
+"speed": 10.0
 }, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
-"loop": true,
+"loop": false,
 "name": "Death",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Idle0",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
-"name": "Idle2",
+"name": "Idle1",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
@@ -360,29 +457,122 @@ animations = [ {
 "name": "Start",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ) ],
+"frames": [ SubResource( 128 ), SubResource( 127 ), SubResource( 126 ), SubResource( 133 ) ],
+"loop": false,
+"name": "Teleport",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ) ],
 "loop": true,
+"name": "Teleport0",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 132 ), SubResource( 131 ), SubResource( 130 ), SubResource( 129 ) ],
+"loop": false,
+"name": "Teleport_Back",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ) ],
+"loop": false,
 "name": "Transformation",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
 "loop": true,
-"name": "Walk",
+"name": "Walk0",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ) ],
 "loop": true,
-"name": "Wlak2",
+"name": "Walk1",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 116 ), SubResource( 117 ) ],
+"loop": false,
+"name": "shield",
 "speed": 10.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=92]
-radius = 16.0
-height = 6.0
+[sub_resource type="AtlasTexture" id=118]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=119]
+atlas = ExtResource( 18 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=120]
+atlas = ExtResource( 18 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=121]
+atlas = ExtResource( 18 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=122]
+atlas = ExtResource( 18 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=123]
+atlas = ExtResource( 18 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=124]
+atlas = ExtResource( 18 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=125]
+animations = [ {
+"frames": [ SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ) ],
+"loop": false,
+"name": "shield",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 122 ), SubResource( 123 ), SubResource( 124 ) ],
+"loop": true,
+"name": "shield_loop",
+"speed": 10.0
+} ]
 
 [sub_resource type="AtlasTexture" id=95]
 atlas = ExtResource( 11 )
 region = Rect2( 256, 48, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 15 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 15 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 15 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 15 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 15 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 15 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 15 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=106]
+atlas = ExtResource( 15 )
+region = Rect2( 1024, 0, 128, 128 )
 
 [sub_resource type="SpriteFrames" id=94]
 animations = [ {
@@ -390,19 +580,50 @@ animations = [ {
 "loop": false,
 "name": "lance",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ) ],
+"loop": false,
+"name": "lance_1",
+"speed": 10.0
 } ]
 
-[node name="boss" type="KinematicBody2D" groups=["boss"]]
-collision_mask = 5
-script = ExtResource( 1 )
+[sub_resource type="Animation" id=96]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ), Color( 1, 1, 1, 1 ), Color( 1, 0.321569, 0.321569, 0.117647 ) ]
+}
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -40 )
-frames = SubResource( 9 )
-animation = "Idle"
-frame = 2
-playing = true
-offset = Vector2( 4, 41 )
+[sub_resource type="Animation" id=97]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=107]
+radius = 66.0
+
+[node name="boss" type="KinematicBody2D" groups=["boss"]]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource( 1 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2( 5, 3 )
@@ -410,8 +631,155 @@ shape = SubResource( 92 )
 
 [node name="Timers" type="Node2D" parent="."]
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -40 )
+z_index = 1
+frames = SubResource( 9 )
+animation = "Teleport0"
+offset = Vector2( 4, 41 )
+
+[node name="shield" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 36, 2 )
+z_index = 1
+frames = SubResource( 125 )
+animation = "shield"
+
 [node name="weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 7, 4 )
 frames = SubResource( 94 )
-animation = "lance"
 offset = Vector2( 40, 0 )
+
+[node name="shield_body" parent="." instance=ExtResource( 16 )]
+z_index = 1
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="lifebar" type="TextureProgress" parent="hud"]
+margin_left = 128.0
+margin_top = 202.0
+margin_right = 278.0
+margin_bottom = 208.0
+max_value = 150.0
+value = 150.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 14 )
+
+[node name="life_bar_ui" type="TextureRect" parent="hud/lifebar"]
+margin_left = -22.0
+margin_top = -13.0
+margin_right = 154.0
+margin_bottom = 19.0
+texture = ExtResource( 12 )
+stretch_mode = 3
+
+[node name="TimerCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TimerCooldown2" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TimerCooldown3" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TimerAttack" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerAttack2" type="Timer" parent="."]
+one_shot = true
+
+[node name="timer_gold_flash" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="effect" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite")
+autoplay = "idle"
+reset_on_save = false
+anims/damage = SubResource( 96 )
+anims/idle = SubResource( 97 )
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="timer_shield" type="Timer" parent="."]
+one_shot = true
+
+[node name="TeleportTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="range" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
+position = Vector2( 5, 3 )
+shape = SubResource( 107 )
+
+[node name="timer_transformation_flash" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="timer_shield_attack" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true
+
+[node name="open" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="atk_0" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 24 )
+bus = "SFX"
+
+[node name="atk_1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 26 )
+bus = "SFX"
+
+[node name="atk_2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 21 )
+bus = "SFX"
+
+[node name="atk_2_acerto" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 25 )
+bus = "SFX"
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 20 )
+bus = "Body"
+
+[node name="dead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 23 )
+bus = "SFX"
+
+[node name="transform" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+bus = "SFX"
+
+[node name="dano" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 27 )
+bus = "Body"
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="shield" to="." method="_on_shield_animation_finished"]
+[connection signal="animation_finished" from="weapon" to="." method="_on_weapon_animation_finished"]
+[connection signal="timeout" from="TimerCooldown" to="." method="_on_TimerCooldown_timeout"]
+[connection signal="timeout" from="TimerCooldown2" to="." method="_on_TimerCooldown2_timeout"]
+[connection signal="timeout" from="TimerCooldown3" to="." method="_on_TimerCooldown3_timeout"]
+[connection signal="timeout" from="TimerAttack" to="." method="_on_TimerAttack_timeout"]
+[connection signal="timeout" from="TimerAttack2" to="." method="_on_TimerAttack2_timeout"]
+[connection signal="timeout" from="timer_gold_flash" to="." method="_on_timer_gold_flash_timeout"]
+[connection signal="animation_finished" from="effect" to="." method="_on_effect_animation_finished"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timer_shield" to="." method="_on_timer_shield_timeout"]
+[connection signal="timeout" from="TeleportTimer" to="." method="_on_TeleportTimer_timeout"]
+[connection signal="body_entered" from="range" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="range" to="." method="_on_range_body_exited"]
+[connection signal="timeout" from="timer_transformation_flash" to="." method="_on_timer_transformation_flash_timeout"]
+[connection signal="timeout" from="timer_shield_attack" to="." method="_on_timer_shield_attack_timeout"]
+[connection signal="timeout" from="open" to="." method="_on_open_timeout"]

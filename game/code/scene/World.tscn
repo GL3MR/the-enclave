@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scene/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/art/menu_and_ui/logo_the_enclave/gl3mr.png" type="Texture" id=2]
@@ -9,19 +9,6 @@
 [ext_resource path="res://scene/weapon_terrain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/loot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scene/Energy_Box.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scene/boss.tscn" type="PackedScene" id=10]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Camera2D
-
-func _ready() -> void:
-	# Conecta o sinal `room_entered` ao método `on_room_entered`
-	Events.connect(\"room_entered\", self, \"_on_room_entered\")
-
-# Define a função que será chamada quando o sinal `room_entered` for emitido
-func _on_room_entered(room):
-	global_position = room.global_position
-"
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 24 )
@@ -104,13 +91,6 @@ position = Vector2( 0, -1120 )
 
 [node name="Room23" parent="." instance=ExtResource( 3 )]
 position = Vector2( 384, -1120 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-current = true
-smoothing_enabled = true
-smoothing_speed = 10.0
-script = SubResource( 1 )
 
 [node name="ambiente" type="AudioStreamPlayer2D" parent="."]
 visible = false
@@ -209,15 +189,15 @@ shape = SubResource( 2 )
 wait_time = 0.1
 one_shot = true
 
-[node name="boss" parent="." instance=ExtResource( 10 )]
-position = Vector2( 656, -112 )
-
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false
 position = Vector2( 384, -224 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 3 )
+
+[node name="position_boss" type="Position2D" parent="."]
+position = Vector2( 472, -104 )
 
 [connection signal="body_entered" from="AreaTutorial3" to="." method="_on_AreaTutorial3_body_entered"]
 [connection signal="body_entered" from="ZonasDialogos/Dialogo_Start" to="." method="_on_Dialogo_Start_body_entered"]

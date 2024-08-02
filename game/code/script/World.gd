@@ -36,8 +36,8 @@ var enemies_rooms = [
 	[],
 	[],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 6},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 6},
+#		{"enemy": preload("res://scene/viper.tscn"), "qtd": 6},
+#		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 6},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
@@ -52,8 +52,12 @@ var enemies_rooms = [
 		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 3},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 3},
+	],
+	[
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 3},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 3},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
@@ -64,24 +68,20 @@ var enemies_rooms = [
 		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
-	],
-	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 3},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 3},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
 		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 5},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 3},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 3},
 	],
 	[
-		{"enemy": preload("res://scene/viper.tscn"), "qtd": 2},
-		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 2},
+		{"enemy": preload("res://scene/viper.tscn"), "qtd": 3},
+		{"enemy": preload("res://scene/Spirk.tscn"), "qtd": 3},
 	],
 	[
 		{"enemy": preload("res://scene/viper.tscn"), "qtd": 5},
@@ -113,9 +113,12 @@ onready var player: Node2D = $Player
 var room_active
 var in_dialog = false
 
+
 func _ready():
 	MusicManager.play("Music_Sala")
 	Events.connect("room_entered", self, "_on_room_entered")
+	
+	global.change_cursor(0)
 	
 	rooms_tutorial = [
 		$Room2,
@@ -166,7 +169,7 @@ func _on_AreaTutorial3_body_entered(body):
 
 func start_dialogue(dialogue_name: String):
 	var dialogic = Dialogic.start(dialogue_name)
-	add_child(dialogic)
+	call_deferred("add_child", dialogic)
 	in_dialog = true
 	$Timer.start()
 	dialogic.connect("timeline_end", self, "_on_timeline_end")
@@ -218,7 +221,6 @@ func _on_Timer_timeout():
 func _input(event):
 	if event is InputEventKey:
 		if event.scancode == KEY_F and event.is_pressed() and !in_dialog:
-			print(!in_dialog)
 			if room_active.get_name() == "Room2":
 				start_dialogue("tutorial-1")
 			if room_active.get_name() == "Room3":
@@ -227,3 +229,6 @@ func _input(event):
 				start_dialogue("tutorial-3")
 			if room_active.get_name() == "Room5":
 				start_dialogue("tutorial-4")
+
+func _exit_tree():
+	Camera2d.position = Vector2(0,0)

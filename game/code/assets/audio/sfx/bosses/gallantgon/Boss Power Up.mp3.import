@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Boss Power Up.mp3-e2d4a30d9a3e85591a3f204193772060.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/bosses/gallantgon/Boss Power Up.mp3"
+dest_files=[ "res://.import/Boss Power Up.mp3-e2d4a30d9a3e85591a3f204193772060.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

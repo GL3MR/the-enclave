@@ -15,6 +15,7 @@ func play(music):
 func stop_all():
 	$Music_Menu.stop()
 	$Music_Sala.stop()
+	$Music_Boss.stop()
 
 func _process(delta):
 	center_on_camera()
