@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	MusicManager.play("Music_Menu")
+	global.change_cursor(4)
 
 func _input(event):
 	

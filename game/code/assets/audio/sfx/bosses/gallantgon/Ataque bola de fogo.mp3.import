@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ataque bola de fogo.mp3-6ffc8474a3a85e20ef88f01396d8e9e9.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/bosses/gallantgon/Ataque bola de fogo.mp3"
+dest_files=[ "res://.import/Ataque bola de fogo.mp3-6ffc8474a3a85e20ef88f01396d8e9e9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -57,7 +57,7 @@ var teleport_points_2 = [
 
 var stat_weapon = [
 	{"damage_": 5, "speed_": 0, "lifespan_": 1.1, "dimension_": Vector2(65, 32), "rotate_": true, "timestamp_": 0.3},
-	{"damage_": 7, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(32, 32), "rotate_": true, "timestamp_": 0.3}
+	{"damage_": 7, "speed_": 400, "lifespan_": 1, "dimension_": Vector2(48, 32), "rotate_": true, "timestamp_": 0.3}
 ]
 
 func _ready():
@@ -83,7 +83,8 @@ func on_dragon_catch_player(body):
 	
 	$TimerCooldown3.wait_time = rand_range(min_time_cooldown_2, max_time_cooldown_2)
 	$TimerCooldown3.start()
-	
+	$atk_2_acerto.play()
+	$atk_2.stop()
 	body.hit(10, true)
 
 func on_dragon_catch_boss(body):
@@ -93,7 +94,8 @@ func on_dragon_catch_boss(body):
 	
 	$TimerCooldown3.wait_time = rand_range(min_time_cooldown_2, max_time_cooldown_2)
 	$TimerCooldown3.start()
-	
+	$atk_2_acerto.play()
+	$atk_2.stop()
 	damage(5, true)
 
 func _physics_process(delta):
@@ -109,13 +111,14 @@ func _physics_process(delta):
 
 		$shield_body.rotation_degrees = angle 
 		
-		if can_transform and !transformation and !animation:
+		if can_transform and !transformation and !animation and !gold:
 			animated_sprite.flip_h = !animated_sprite.flip_h
 			flip = !flip
 			animation = true
 			form = 1
 			$timer_transformation_flash.start()
 			$AnimatedSprite.play("Transformation")
+			$transform.play()
 		elif life > 0 and !atacking and !animation:
 			time_since_last_update += delta
 			if time_since_last_update >= path_update_interval:
@@ -145,6 +148,7 @@ func _physics_process(delta):
 			flip = !flip
 			$weapon.visible = false
 			animated_sprite.play("Death")
+			$dead.play()
 			yield($AnimatedSprite, "animation_finished")
 			queue_free()
 
@@ -179,14 +183,17 @@ func move_along_path(delta):
 			
 			# Play the walk animation if not already playing
 			if not animated_sprite.is_playing() or animated_sprite.animation.find("Walk") == -1:
+				$walk.play()
 				animated_sprite.play("Walk" + str(form))
 		else:
 			if animated_sprite.is_playing() and animated_sprite.animation.find("Walk") != -1:
 				animated_sprite.stop()
+				$walk.stop()
 				animated_sprite.play("Idle" + str(form))
 	else:
 		if animated_sprite.is_playing() and animated_sprite.animation.find("Walk") != -1:
 			animated_sprite.stop()
+			$walk.stop()
 			animated_sprite.play("Idle" + str(form))
 
 func attack(weapon_id: int):
@@ -204,8 +211,10 @@ func attack_with_weapon_0():
 	var stat = stat_weapon[0]
 	atacking = true
 	can_shoot_0 = false
+	$walk.stop()
 	animated_sprite.play("Atk" + str(form))
 	inst_proj.init(true, stat.damage_, stat.speed_, stat.lifespan_, stat.dimension_, 0, get_direction(), $weapon.global_position, stat.rotate_, flip, stat.timestamp_)
+	$atk_0.play()
 	get_parent().add_child(inst_proj)
 	$TimerAttack.wait_time = stat.lifespan_
 	$TimerAttack.start()
@@ -215,6 +224,7 @@ func attack_with_weapon_1():
 	animation = true
 	atacking = true
 	can_shoot_1 = false
+	$walk.stop()
 	animated_sprite.play("Teleport")
 
 func attack_with_weapon_2():
@@ -222,6 +232,7 @@ func attack_with_weapon_2():
 	atacking = true
 	gold = true
 	can_shoot_2 = false
+	$walk.stop()
 	animated_sprite.play("Teleport")
 	
 func get_direction() -> Vector2:
@@ -229,6 +240,7 @@ func get_direction() -> Vector2:
 
 func damage(amount, not_invinsible = false):
 	if (!invinsible and !gold) or not_invinsible:
+		$dano.stop()
 		life = max(0, life - amount)
 		invinsible = true
 		$effect.play("damage")
@@ -298,10 +310,12 @@ func teleport_to(new_position: Vector2):
 func perform_teleport():
 	var random_point = teleport_points[randi() % teleport_points.size()]
 	teleport_to(random_point)
+	$walk.stop()
 	$AnimatedSprite.play("Teleport_Back")
 
 func perform_teleport_2():
 	teleport_to(get_farthest_point())
+	$walk.stop()
 	$AnimatedSprite.play("Teleport_Back")
 
 func get_farthest_point() -> Vector2:
@@ -334,16 +348,29 @@ func _on_AnimatedSprite_animation_finished():
 	elif $AnimatedSprite.animation == "Teleport_Back" and !open and !gold:
 		animation = false
 		var stat = stat_weapon[1]
+		$walk.stop()
 		animated_sprite.play("Atk" + str(form))
 		$weapon.visible = true
 		$weapon.play("lance_1")
 		$timer.start()
+		$atk_1.play()
 	elif $AnimatedSprite.animation == "Teleport_Back" and !open and gold:
 		animation = false
+		# Inverte a animação com base na posição do player, considerando um buffer
+		if abs(player.position.x - position.x) > direction_threshold:
+			if player.position.x < position.x:
+				animated_sprite.flip_h = true
+				flip = true
+			else:
+				animated_sprite.flip_h = false
+				flip = false
+		$walk.stop()
 		animated_sprite.play("shield")
 		$timer_gold_flash.start()
 		$timer_shield_attack.start()
 	elif $AnimatedSprite.animation == "Teleport_Back" and open:
+		$walk.stop()
+		MusicManager.play("Music_Boss")
 		animated_sprite.play("Start")
 	elif $AnimatedSprite.animation == "Start":
 		open = false
@@ -366,11 +393,20 @@ func _on_timer_transformation_flash_timeout():
 
 
 func _on_timer_shield_attack_timeout():
+	# Inverte a animação com base na posição do player, considerando um buffer
+	if abs(player.position.x - position.x) > direction_threshold:
+		if player.position.x < position.x:
+			animated_sprite.flip_h = true
+			flip = true
+		else:
+			animated_sprite.flip_h = false
+			flip = false
 	if flip:
 		$shield.offset = Vector2(-64, 0)
 		$shield.flip_h = true
 	$shield.visible = true
 	$shield.play("shield")
+	$atk_2.play()
 	var inst_dragon = dragon.instance()
 	get_parent().add_child(inst_dragon)
 	inst_dragon.initialize(player, $shield.global_position, flip)
@@ -386,4 +422,5 @@ func _on_timer_gold_flash_timeout():
 
 func _on_open_timeout():
 	Events.emit_in_dialog()
+	$walk.stop()
 	animated_sprite.play("Teleport_Back")

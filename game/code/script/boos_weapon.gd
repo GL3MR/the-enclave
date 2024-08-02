@@ -10,6 +10,8 @@ var timer_life
 var timestamp = 0.3
 
 func _ready():
+	if id == 0:
+		$Timer.start()
 	timer_life = Timer.new()
 	timer_life.set_wait_time(tde_life)
 	timer_life.connect("timeout", self, "_on_timerlife_timeout")
@@ -43,7 +45,7 @@ func init(allie_, damage_, speed_, tde_life, dimension, apparence, dir, pos, rot
 	elif apparence == 1:
 		$area/col.position.x +=42
 		$area/col.position.y -=8
-		$area/col.position.x +=16
+#		$area/col.position.x +=16
 #	elif apparence == 2:
 #		$area/col.position.x +=16
 #	if(flip):
@@ -86,3 +88,7 @@ func weapon_1_blust():
 
 func _on_timer_timeout():
 	$area/col.disabled = false
+
+
+func _on_Timer_timeout():
+	$area/col.disabled = true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Charge attack.mp3-0670ee41a3cc5245875b2e4b9e50ab02.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/bosses/gallantgon/Charge attack.mp3"
+dest_files=[ "res://.import/Charge attack.mp3-0670ee41a3cc5245875b2e4b9e50ab02.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
