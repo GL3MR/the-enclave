@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Boss andando.mp3-1841d55e138c0af3e06d1ee7ea58ceea.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/bosses/gallantgon/Boss andando.mp3"
+dest_files=[ "res://.import/Boss andando.mp3-1841d55e138c0af3e06d1ee7ea58ceea.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

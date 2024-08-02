@@ -162,9 +162,11 @@ func _physics_process(delta):
 
 func _on_in_dialog():
 	in_dialog = true
+	$weapon.visible = false
 
 func on_timeline_ended():
 	in_dialog = false
+	$weapon.visible = true
 
 	if in_dialog:
 		anim_switch("idle")
@@ -231,6 +233,7 @@ func attack():
 		timer_att.connect("timeout", self, "_on_timeratt_timeout")
 		add_child(timer_att)
 	if id_weapon == 1:
+		Events.emit_player_weapon_buster()
 		timer_att.set_wait_time(0.4)
 	else:
 		timer_att.set_wait_time(stat.lifespan_)
@@ -242,8 +245,8 @@ func attack():
 	if id_weapon != 2:
 		$weapon.play("attack_" + (str(id_weapon)))
 
-func hit(dmg):
-	if not invinsible and life != 0:
+func hit(dmg, not_invinsible = false):
+	if (!invinsible or not_invinsible) and life != 0:
 		Events.emit_hit_player()
 		invinsible = true
 		life = max(0, life - dmg)

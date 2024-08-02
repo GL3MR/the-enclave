@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Coletando sucata refeito.mp3-cb734c2172a8ec91c741a3aa77ef767b.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/ui/Coletando sucata refeito.mp3"
+dest_files=[ "res://.import/Coletando sucata refeito.mp3-cb734c2172a8ec91c741a3aa77ef767b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

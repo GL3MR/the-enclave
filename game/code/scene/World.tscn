@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scene/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/art/menu_and_ui/logo_the_enclave/gl3mr.png" type="Texture" id=2]
@@ -9,46 +9,6 @@
 [ext_resource path="res://scene/weapon_terrain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/loot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scene/Energy_Box.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scene/boss.tscn" type="PackedScene" id=10]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Camera2D
-
-export var NOISE_SHAKE_SPEED: float = 20.0
-export var NOISE_SHAKE_STRENGTH: float = 10.0
-export var SHAKE_DECAY_RATE: float = 5.0
-onready var rand = RandomNumberGenerator.new()
-onready var noise = OpenSimplexNoise.new()
-var noise_i: float = 0.0
-var shake_strength: float = 0.0
-
-func _ready() -> void:
-	rand.randomize()
-	noise.seed = rand.randi()
-	noise.period = 2
-	
-	Events.connect(\"room_entered\", self, \"_on_room_entered\")
-	Events.connect(\"hit_player\", self, \"_on_hit_player\")
-
-func _on_room_entered(room):
-	global_position = room.global_position
-
-func _process(delta):
-	shake_strength = lerp(shake_strength, 0, SHAKE_DECAY_RATE * delta)
-
-	offset = get_noise_offset(delta)
-
-func get_noise_offset(delta: float) -> Vector2:
-	noise_i += delta * NOISE_SHAKE_SPEED
-	
-	return Vector2(
-		noise.get_noise_2d(1, noise_i) * shake_strength,
-		noise.get_noise_2d(100, noise_i) * shake_strength
-	)
-
-func _on_hit_player():
-	shake_strength = NOISE_SHAKE_STRENGTH
-"
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 24 )
@@ -131,13 +91,6 @@ position = Vector2( 0, -1120 )
 
 [node name="Room23" parent="." instance=ExtResource( 3 )]
 position = Vector2( 384, -1120 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-current = true
-smoothing_enabled = true
-smoothing_speed = 10.0
-script = SubResource( 1 )
 
 [node name="ambiente" type="AudioStreamPlayer2D" parent="."]
 visible = false
@@ -236,15 +189,15 @@ shape = SubResource( 2 )
 wait_time = 0.1
 one_shot = true
 
-[node name="boss" parent="." instance=ExtResource( 10 )]
-position = Vector2( 656, -112 )
-
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false
 position = Vector2( 384, -224 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 3 )
+
+[node name="position_boss" type="Position2D" parent="."]
+position = Vector2( 472, -104 )
 
 [connection signal="body_entered" from="AreaTutorial3" to="." method="_on_AreaTutorial3_body_entered"]
 [connection signal="body_entered" from="ZonasDialogos/Dialogo_Start" to="." method="_on_Dialogo_Start_body_entered"]
