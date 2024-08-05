@@ -36,25 +36,31 @@
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
+			"text": "Use o scroll do mouse para trocar de arma rapidamente."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
 			"text": "Você tem três armas:"
 		},
 		{
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "o Buster, que ataca à distância com baixo dano"
+			"text": "o [color=#bb314e]Buster[/color],, que ataca à distância com baixo dano."
 		},
 		{
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "o Saber, que dá um ataque em área com dano médio"
+			"text": "o [color=#3bb44a]Saber[/color], que dá um ataque em área com dano médio."
 		},
 		{
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "e o Puncher, que é um ataque de curto alcance com alto dano"
+			"text": "e o [color=#406cc3]Puncher[/color], que é um ataque de curto alcance com alto dano."
 		},
 		{
 			"character": "character-1721933330.json",

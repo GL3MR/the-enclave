@@ -49,7 +49,7 @@
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Você vê duas portas à sua frente. A verde leva você ao tutorial, e a azul... bem, é para os corajosos que preferem pular o tutorial."
+			"text": "Você vê duas portas à sua frente. A [color=#3bb44a]porta verde[/color] leva você ao tutorial, e a [color=#406cc3]porta azul[/color]... bem, é para os corajosos que preferem pular o tutorial."
 		},
 		{
 			"character": "character-1721933330.json",

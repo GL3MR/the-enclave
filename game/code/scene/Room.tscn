@@ -542,6 +542,10 @@ position = Vector2( 192, 80 )
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="init" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_body_exited"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_Cooldow_timeout"]
+[connection signal="timeout" from="init" to="." method="_on_init_timeout"]

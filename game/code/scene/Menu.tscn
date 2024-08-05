@@ -1,12 +1,30 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://theme/user_interface.tres" type="Theme" id=1]
 [ext_resource path="res://assets/fonts/kenney_mini_square.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://script/Menu.gd" type="Script" id=3]
+[ext_resource path="res://assets/art/menu_and_ui/Enclave-title.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "luz"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 4.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "open"
@@ -34,15 +52,23 @@ margin_right = 384.0
 margin_bottom = 224.0
 color = Color( 0.109804, 0.117647, 0.12549, 1 )
 
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_top = -24.0
+margin_right = 384.0
+margin_bottom = 200.0
+texture = ExtResource( 4 )
+
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = 52.0
+margin_top = -80.0
 margin_right = 332.0
-margin_bottom = 80.0
 custom_fonts/font = SubResource( 2 )
 text = "Enclave"
 
 [node name="anim" type="AnimationPlayer" parent="."]
-autoplay = "open"
+autoplay = "luz"
+anims/luz = SubResource( 3 )
 anims/open = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -55,16 +81,22 @@ theme = ExtResource( 1 )
 alignment = 1
 
 [node name="jogar" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
-margin_top = 16.0
 margin_right = 220.0
-margin_bottom = 44.0
+margin_bottom = 28.0
 text = "Jogar"
 
-[node name="sair" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
-margin_top = 48.0
+[node name="dev" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 32.0
 margin_right = 220.0
-margin_bottom = 76.0
+margin_bottom = 60.0
+text = "Desenvolvedores"
+
+[node name="sair" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 64.0
+margin_right = 220.0
+margin_bottom = 92.0
 text = "Sair"
 
 [connection signal="pressed" from="VBoxContainer/jogar" to="." method="_on_jogar_pressed"]
+[connection signal="pressed" from="VBoxContainer/dev" to="." method="_on_dev_pressed"]
 [connection signal="pressed" from="VBoxContainer/sair" to="." method="_on_sair_pressed"]

@@ -61,6 +61,18 @@ func close_door():
 		collision_shape.set_deferred("disabled", false)
 		animated_sprite.play("closing_" + color) 
 	audio_porta.play()  
+
+func opened_door():
+	if color:
+		if in_puzzle and puzzle_complete:
+			animated_sprite.play("open_" + color)
+		elif !in_puzzle:
+			animated_sprite.play("open_" + color)
+
+func closed_door():
+	if color:
+		collision_shape.set_deferred("disabled", false)
+		animated_sprite.play("close_" + color) 
 	
 func is_close_door():
 	return animated_sprite.animation == "close_" + color

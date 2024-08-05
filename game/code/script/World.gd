@@ -106,13 +106,13 @@ var enemies_rooms = [
 ]
 
 var rooms_tutorial = []
+var rooms_for_loot = []
 
 onready var musica_ambiente: AudioStreamPlayer2D = $ambiente
 onready var player: Node2D = $Player
 
 var room_active
 var in_dialog = false
-
 
 func _ready():
 	MusicManager.play("Music_Sala")
@@ -137,6 +137,9 @@ func _ready():
 	find_rooms()
 	set_rooms()
 	setup_rooms_with_enemies()
+	
+	find_rooms_for_loot()
+	set_loot_in_rooms()
 
 func _on_room_entered(room):
 	room_active = room
@@ -147,6 +150,19 @@ func find_rooms():
 	for child in get_children():
 		if child.name.begins_with("Room"):
 			rooms.append(child)
+
+func find_rooms_for_loot():
+	for child in get_children():
+		if child.name.begins_with("Room"):
+			var room_number = child.name.substr(4).to_int()
+			if room_number >= 8 and room_number <= 23:
+				rooms_for_loot.append(child)
+
+
+func set_loot_in_rooms():
+	rooms_for_loot.shuffle()
+	for i in range(5):
+		rooms_for_loot[i].set_loot()
 
 func set_rooms():
 	for j in range(rooms.size()):
