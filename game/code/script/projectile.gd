@@ -72,6 +72,7 @@ func _on_area_body_entered(body):
 	if body.is_in_group("lampe") and (id == 2):
 		body.lightUp() 
 	if body.is_in_group("mob") and allie_ and body.life > 0:
+		if id == 2: damage_ = 2* damage_
 		body.damage(damage_) 
 		if id == 1:
 			weapon_1_blust()

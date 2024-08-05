@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme/user_interface.tres" type="Theme" id=1]
+[ext_resource path="res://script/Desenvolvedores.gd" type="Script" id=2]
+
+[node name="Desenvolvedores" type="Control"]
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 24.0
+margin_right = 360.0
+margin_bottom = 224.0
+alignment = 1
+
+[node name="github" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 2.0
+margin_right = 336.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "Github - GL3MR"
+
+[node name="link_milton" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 34.0
+margin_right = 336.0
+margin_bottom = 62.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "MILTON ALEXANDRE SOUZA DEMARCHI"
+
+[node name="link_ronan" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 66.0
+margin_right = 336.0
+margin_bottom = 94.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "Ronan Vieira do Carmo Junior"
+
+[node name="link_luis" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 98.0
+margin_right = 336.0
+margin_bottom = 126.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "LUIS RICARDO SANTOS DE LIMA"
+
+[node name="link_lucio" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 130.0
+margin_right = 336.0
+margin_bottom = 158.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "LÚCIO SÉRGIO LUIS JUNQUEIRA"
+
+[node name="link_gabriel" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 162.0
+margin_right = 336.0
+margin_bottom = 190.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "GABRIEL SILVA TAVEIRA"
+
+[node name="voltar" type="Button" parent="VBoxContainer" groups=["buttonswitch"]]
+margin_top = 194.0
+margin_right = 336.0
+margin_bottom = 222.0
+rect_pivot_offset = Vector2( 67, 14 )
+theme = ExtResource( 1 )
+text = "Voltar"
+
+[connection signal="pressed" from="VBoxContainer/github" to="." method="_on_github_pressed"]
+[connection signal="pressed" from="VBoxContainer/link_milton" to="." method="_on_link_milton_pressed"]
+[connection signal="pressed" from="VBoxContainer/link_ronan" to="." method="_on_link_ronan_pressed"]
+[connection signal="pressed" from="VBoxContainer/link_luis" to="." method="_on_link_luis_pressed"]
+[connection signal="pressed" from="VBoxContainer/link_lucio" to="." method="_on_link_lucio_pressed"]
+[connection signal="pressed" from="VBoxContainer/link_gabriel" to="." method="_on_link_gabriel_pressed"]
+[connection signal="pressed" from="VBoxContainer/voltar" to="." method="_on_voltar_pressed"]

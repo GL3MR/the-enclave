@@ -201,7 +201,6 @@ func apparence_hud():
 func dash():
 	Events.emit_tutorial_player_dashed()
 	dashing = true
-	invinsible = true
 	if !timer_dash:
 		timer_dash = Timer.new()
 		add_child(timer_dash)
@@ -246,7 +245,7 @@ func attack():
 		$weapon.play("attack_" + (str(id_weapon)))
 
 func hit(dmg, not_invinsible = false):
-	if (!invinsible or not_invinsible) and life != 0:
+	if ((!invinsible and !dashing) or not_invinsible) and life != 0:
 		Events.emit_hit_player()
 		invinsible = true
 		life = max(0, life - dmg)
@@ -282,7 +281,6 @@ func _on_timeratt_timeout():
 
 func _on_timerdash_timeout():
 	dashing = false
-	invinsible = false
 
 func _on_timerdamage_timeout():
 	if life > 0:

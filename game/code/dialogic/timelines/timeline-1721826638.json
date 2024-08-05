@@ -36,19 +36,25 @@
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "A porta vermelha à direita é o desafio final da simulação, mas antes você precisa ligar o painel."
+			"text": "A [color=#bb314e]porta vermelha[/color] à direita é o desafio final da simulação, mas antes você precisa ligar o painel."
 		},
 		{
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Procure a bateria nas salas acima. Passel pela porta azul."
+			"text": "Procure a bateria nas salas acima. Passe pela [color=#406cc3]porta azul[/color]."
 		},
 		{
 			"character": "character-1721933330.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Tenha cuidado, há inimigos muito poderosos lá."
+		},
+		{
+			"character": "character-1721933330.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "À medida que você se afasta da sala principal, mais inimigos vão aparecendo."
 		},
 		{
 			"event_id": "dialogic_022",

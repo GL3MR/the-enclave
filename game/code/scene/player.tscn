@@ -57,11 +57,6 @@ animations = [ {
 "name": "2",
 "speed": 10.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 15 ) ],
 "loop": false,
 "name": "attack_0",

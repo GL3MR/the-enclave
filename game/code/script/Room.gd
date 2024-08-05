@@ -9,6 +9,7 @@ onready var timer_cooldown = $Cooldown
 
 var batery = preload("res://scene/Batery.tscn")
 var viper = preload("res://scene/viper.tscn")
+var loot = preload("res://scene/loot.tscn")
 
 var doors = []
 var walls = []
@@ -28,9 +29,17 @@ var has_weapon_wheel_opened = false
 
 var batery_catch = false
 
+var room_init = false
+
 var set = 0
 
 func _ready():
+	Events.connect("timeline_ended", self, "on_timeline_ended")
+	
+	if name == "Room1":
+		print(name)
+		room_init = true
+	
 	batery_catch = false
 	
 	spawn_area_tuotial3 = [
@@ -120,7 +129,7 @@ func _on_PlayerDetector_body_entered(body):
 		
 		spawn_enemies()
 		
-		update_doors()
+		init_doors()
 		
 		Events.emit_room_entered(self)
 		timer_cooldown.start()
@@ -153,11 +162,34 @@ func _on_enemy_left():
 	enemies_in_room -= 1
 	update_doors()
 
-func update_doors():
-	
-	if enemies_in_room > 0 and !is_tutorial:
+func init_doors():
+	if (enemies_in_room > 0 and !is_tutorial) or room_init:
 		if playerBody != null:
 			for door in doors:
+				if room_init:
+					print(playerBody)
+				if !door.is_close_door():
+					door.closed_door()
+	else:
+		for door in doors:
+			if self == self.get_parent().get_node("Room6") and (door.get_name() == "DoorLeft" or door.get_name() == "DoorDown"):
+				if !door.is_close_door():
+					door.closed_door()
+			elif Storage.in_challenge and self == self.get_parent().get_node("Room6") and (door.get_name() == "DoorUp"):
+				if !door.is_close_door():
+					door.closed_door()
+			elif is_tutorial and !tutorial_complete:
+				if !door.is_close_door():
+					door.closed_door()
+			elif !door.is_open_door() and !is_tutorial:
+				door.opened_door()
+
+func update_doors():
+	if (enemies_in_room > 0 and !is_tutorial) or room_init:
+		if playerBody != null:
+			for door in doors:
+				if room_init:
+					print(playerBody)
 				if !door.is_close_door():
 					door.close_door()
 	else:
@@ -187,6 +219,12 @@ func set_room(options):
 			door.set_door(Enums.door_color_to_string[option])
 			door.visible = true
 			wall.visible = false
+
+func set_loot():
+	var loot_instance = loot.instance()
+	var spawn_position = $SpawnArea/Spawn105.global_position
+	loot_instance.position = spawn_position
+	get_parent().call_deferred("add_child", loot_instance)
 
 func set_enemies(enemies_data):
 	self.enemies_data = enemies_data
@@ -256,3 +294,12 @@ func _on_tutorial_player_passed_enemy():
 
 func _on_Cooldow_timeout():
 	Events.emit_player_room_entered(playerBody,self)
+
+func on_timeline_ended():
+	if room_init:
+		$init.start()
+
+
+func _on_init_timeout():
+	open_one_door($DoorLeft)
+	open_one_door($DoorUp)
