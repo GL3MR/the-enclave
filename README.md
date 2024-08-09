@@ -5,6 +5,10 @@
 
 Este projeto faz parte do curso de Jogos Digitais da UFG (Universidade Federal de Goiás), ministrado pelo professor Sergio Teixeira de Carvalho.
 
+## Trailer
+
+[![Enclave A Simulação - Tailer](https://img.youtube.com/vi/ChG6uciMa_4/0.jpg)](https://www.youtube.com/watch?v=ChG6uciMa_4)
+
 ## Sobre o Jogo
 
 Enclave é um jogo de ação estilo Roguelite 2.5D com temática sci-fi, ambientado em uma fábrica de robôs abandonada. O jogo acompanha a jornada de um robô que participa de uma simulação, testando suas habilidades de sobrevivência e resolução de problemas para o Enclave.
